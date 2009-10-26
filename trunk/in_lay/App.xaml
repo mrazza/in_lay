@@ -1,0 +1,23 @@
+﻿<!--
+ /*******************************************************************
+ * This file is part of the in_lay Player.
+ * 
+ * in_lay Player source may be distributed or modified without
+ * permission if attribution is given and this message and copyright
+ * remain.
+ * 
+ * in_lay Player is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * *****************************************************************
+ * Copyright (C) 2009 Matt Razza
+ * This software is distributed under the Microsoft Public License (Ms-PL).
+ *******************************************************************/
+-->
+<Application x:Class="in_lay.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
