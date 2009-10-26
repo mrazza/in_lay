@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "in_lay Player", "in_lay\in_lay Player.csproj", "{0EC084C9-5ED0-4FAF-A80B-54371D1EBAD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netAudio", "netAudio\netAudio.csproj", "{2FCFCF18-62A4-42D7-9A66-17DCB5F7CED2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testing", "testing\testing.csproj", "{653AB384-59FA-4B5A-82F9-362A5E6785F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7A5396A2-1232-44A2-961B-CF7801E2392A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netDiscographer", "netDiscographer\netDiscographer.csproj", "{5F5E13D1-7AF1-4343-91A0-D83B50996C2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netGooey", "netGooey\netGooey.csproj", "{4A928895-8CC1-4571-827B-0AF2054B9E97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "in_lay_Shared", "in_lay Shared\in_lay_Shared.csproj", "{E3F03DBB-54F1-4212-BF53-D0AF394C0581}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0EC084C9-5ED0-4FAF-A80B-54371D1EBAD7}.Debug|x86.ActiveCfg = Debug|x86
+		{0EC084C9-5ED0-4FAF-A80B-54371D1EBAD7}.Debug|x86.Build.0 = Debug|x86
+		{0EC084C9-5ED0-4FAF-A80B-54371D1EBAD7}.Release|x86.ActiveCfg = Release|x86
+		{0EC084C9-5ED0-4FAF-A80B-54371D1EBAD7}.Release|x86.Build.0 = Release|x86
+		{2FCFCF18-62A4-42D7-9A66-17DCB5F7CED2}.Debug|x86.ActiveCfg = Debug|x86
+		{2FCFCF18-62A4-42D7-9A66-17DCB5F7CED2}.Debug|x86.Build.0 = Debug|x86
+		{2FCFCF18-62A4-42D7-9A66-17DCB5F7CED2}.Release|x86.ActiveCfg = Release|x86
+		{2FCFCF18-62A4-42D7-9A66-17DCB5F7CED2}.Release|x86.Build.0 = Release|x86
+		{653AB384-59FA-4B5A-82F9-362A5E6785F2}.Debug|x86.ActiveCfg = Debug|x86
+		{653AB384-59FA-4B5A-82F9-362A5E6785F2}.Debug|x86.Build.0 = Debug|x86
+		{653AB384-59FA-4B5A-82F9-362A5E6785F2}.Release|x86.ActiveCfg = Release|x86
+		{653AB384-59FA-4B5A-82F9-362A5E6785F2}.Release|x86.Build.0 = Release|x86
+		{5F5E13D1-7AF1-4343-91A0-D83B50996C2D}.Debug|x86.ActiveCfg = Debug|x86
+		{5F5E13D1-7AF1-4343-91A0-D83B50996C2D}.Debug|x86.Build.0 = Debug|x86
+		{5F5E13D1-7AF1-4343-91A0-D83B50996C2D}.Release|x86.ActiveCfg = Release|x86
+		{5F5E13D1-7AF1-4343-91A0-D83B50996C2D}.Release|x86.Build.0 = Release|x86
+		{4A928895-8CC1-4571-827B-0AF2054B9E97}.Debug|x86.ActiveCfg = Debug|x86
+		{4A928895-8CC1-4571-827B-0AF2054B9E97}.Debug|x86.Build.0 = Debug|x86
+		{4A928895-8CC1-4571-827B-0AF2054B9E97}.Release|x86.ActiveCfg = Release|x86
+		{4A928895-8CC1-4571-827B-0AF2054B9E97}.Release|x86.Build.0 = Release|x86
+		{E3F03DBB-54F1-4212-BF53-D0AF394C0581}.Debug|x86.ActiveCfg = Debug|x86
+		{E3F03DBB-54F1-4212-BF53-D0AF394C0581}.Debug|x86.Build.0 = Debug|x86
+		{E3F03DBB-54F1-4212-BF53-D0AF394C0581}.Release|x86.ActiveCfg = Release|x86
+		{E3F03DBB-54F1-4212-BF53-D0AF394C0581}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
