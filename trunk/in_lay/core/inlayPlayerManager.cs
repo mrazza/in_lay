@@ -66,48 +66,42 @@ namespace in_lay.core
         /// <summary>
         /// Base Constructor
         /// </summary>
-        public inlayPlayerManager()
+        /// <param name="nPlayer">netAudioPlayer to use</param>
+        public inlayPlayerManager(netAudioPlayer nPlayer)
         {
+            if (nPlayer == null)
+                throw new NullReferenceException("nPlayer is not set to an instance of an object.");
+
+            _nPlayer = nPlayer;
         }
         #endregion
 
         #region Public Members
         /// <summary>
-        /// Inits the player manager.
-        /// </summary>
-        /// <param name="nPlayer">The netAudio player.</param>
-        /// <param name="gWindow">The netGooey window.</param>
-        public void initPlayerManager(netAudioPlayer nPlayer, gooeyWindow gWindow)
-        {
-            if (nPlayer == null)
-                throw new NullReferenceException("nPlayer is not set to an instance of an object.");
-
-            if (gWindow == null)
-                throw new NullReferenceException("gWindow is not set to an instance of an object.");
-
-            _nPlayer = nPlayer;
-            _gWindow = gWindow;
-        }
-
-        /// <summary>
-        /// Generates the window.
+        /// Generates and uses the window
         /// </summary>
         /// <param name="gSystem">The netGooey system.</param>
         /// <returns>New netGooey Window</returns>
-        public gooeyWindow generateWindow(gooeySystem gSystem)
+        public void generateWindow(gooeySystem gSystem)
         {
-            return gSystem.createWindow(); 
+            if (_gWindow != null)
+                return;
+
+            _gWindow = gSystem.createWindow(); 
         }
 
         /// <summary>
-        /// Generates the window.
+        /// Generates and uses the window.
         /// </summary>
         /// <param name="gSystem">The netGooey system.</param>
         /// <param name="sFile">The path to the UI file.</param>
         /// <returns>New netGooey Window</returns>
-        public gooeyWindow generateWindow(gooeySystem gSystem, string sFile)
+        public void generateWindow(gooeySystem gSystem, string sFile)
         {
-            return gSystem.createWindow(sFile, (gooeySystem.initializationDelegate)initUIElements);
+            if (_gWindow != null)
+                return;
+
+            _gWindow = gSystem.createWindow(sFile, (gooeySystem.initializationDelegate)initUIElements);
         }
         #endregion
 

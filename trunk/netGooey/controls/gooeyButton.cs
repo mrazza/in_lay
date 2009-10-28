@@ -122,6 +122,9 @@ namespace netGooey.controls
         /// <remarks>When overriding this function, you must call base.onGooeyInitializationComplete AFTER any new code.</remarks>
         public virtual void onGooeyInitializationComplete()
         {
+            if (_isInitializationComplete)
+                throw new InvalidOperationException("Can not execute onGooeyInitializationComplete() because the object has already been initialized.");
+
             _isInitializationComplete = true;
         }
         #endregion

@@ -36,8 +36,8 @@ namespace in_lay
         public App()
         {
             gooeySystem gSystem = new gooeySystem();
-            inlayPlayerManager inSys = new inlayPlayerManager();
-            inSys.initPlayerManager(new netVLCPlayer(), inSys.generateWindow(gSystem, @"ui\default\main.xaml"));
+            inlayPlayerManager inSys = new inlayPlayerManager(new netVLCPlayer());
+            inSys.generateWindow(gSystem, @"ui\default\main.xaml");
             inSys.gWindow.Show();
             inSys.nPlayer.sMediaPath = @""; //Enter path to track here C:\someFile.mp3
             inSys.nPlayer.iVolume = 10;
