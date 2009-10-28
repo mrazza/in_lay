@@ -15,6 +15,10 @@
 
 using netAudio.core;
 using netGooey.core;
+using System.Windows;
+using in_lay_Shared.ui.controls.core;
+using netAudio.core.events;
+using System;
 
 namespace in_lay_Shared.ui.controls.core
 {

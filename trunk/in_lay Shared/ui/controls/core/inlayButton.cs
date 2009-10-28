@@ -79,7 +79,18 @@ namespace in_lay_Shared.ui.controls.core
         public inlayButton()
             : base()
         {
+        }
+        #endregion
+
+        #region Public Members
+        /// <summary>
+        /// Called when [initialize complete].
+        /// </summary>
+        /// <remarks>When overriding this function, you must call base.onGooeyInitializationComplete AFTER any new code.</remarks>
+        public override void onGooeyInitializationComplete()
+        {
             AddHandler(ButtonBase.ClickEvent, (eOnClick = new RoutedEventHandler(onClick)));
+            base.onGooeyInitializationComplete();
         }
         #endregion
 
