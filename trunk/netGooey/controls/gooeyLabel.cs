@@ -20,9 +20,9 @@ using netGooey.core;
 namespace netGooey.controls
 {
     /// <summary>
-    /// Abstract netGooey Button Implementation
+    /// Abstract netGooey Label Implementation
     /// </summary>
-    public abstract class gooeyButton : Button, IGooeyControl
+    public abstract class gooeyLabel : Label, IGooeyControl
     {
         #region Members
         /// <summary>
@@ -104,9 +104,9 @@ namespace netGooey.controls
 
         #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="gooeyButton"/> class.
+        /// Initializes a new instance of the <see cref="gooeyLabel"/> class.
         /// </summary>
-        public gooeyButton()
+        public gooeyLabel()
             : base()
         {
             _isInitializationComplete = false;
