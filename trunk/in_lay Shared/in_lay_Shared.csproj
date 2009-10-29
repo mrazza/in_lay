@@ -50,12 +50,14 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ui\controls\core\inlayGrid.cs" />
+    <Compile Include="ui\controls\core\inlaySlider.cs" />
     <Compile Include="ui\controls\main\pauseButton.cs" />
     <Compile Include="ui\controls\main\playButton.cs" />
     <Compile Include="ui\controls\core\inlayButton.cs" />
     <Compile Include="ui\controls\core\IPlayerControl.cs" />
     <Compile Include="ui\controls\main\playPauseStopToggle.cs" />
     <Compile Include="ui\controls\main\stopButton.cs" />
+    <Compile Include="ui\controls\main\volumeSlider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netAudio\netAudio.csproj">

@@ -20,9 +20,9 @@ using netGooey.core;
 namespace netGooey.controls
 {
     /// <summary>
-    /// Abstract netGooey Grid Implementation
+    /// Abstract netGooey Slider Control
     /// </summary>
-    public abstract class gooeyGrid : Grid, IGooeyControl
+    public abstract class gooeySlider : Slider, IGooeyControl
     {
         #region Members
         /// <summary>
@@ -104,9 +104,9 @@ namespace netGooey.controls
 
         #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="gooeyGrid"/> class.
+        /// Initializes a new instance of the <see cref="inlaySlider"/> class.
         /// </summary>
-        public gooeyGrid()
+        public gooeySlider()
             : base()
         {
             _isInitializationComplete = false;

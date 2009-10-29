@@ -21,5 +21,6 @@
         <ui:playButton ui:playPauseStopToggle.OnPauseShow="True" ui:playPauseStopToggle.OnStopShow="True" Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="78" Margin="65,129,0,0">Play</ui:playButton>
         <ui:pauseButton ui:playPauseStopToggle.OnPlayShow="True"  Height="63" VerticalAlignment="Top" Margin="149,129,0,0" HorizontalAlignment="Left" Width="78">Pause</ui:pauseButton>
     </ui:playPauseStopToggle>
+    <ui:volumeSlider Maximum="100" Minimum="0" Margin="42,208,62,0" Height="30" VerticalAlignment="Top" TickFrequency="10" TickPlacement="BottomRight" />
     <ui:stopButton Height="63" VerticalAlignment="Top" Margin="233,129,189,0">Stop</ui:stopButton>
 </Grid>
