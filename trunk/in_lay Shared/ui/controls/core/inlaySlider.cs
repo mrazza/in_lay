@@ -21,9 +21,9 @@ using netGooey.controls;
 namespace in_lay_Shared.ui.controls.core
 {
     /// <summary>
-    /// Generic in_lay Button with click functionality
+    /// in_lay Slider Control
     /// </summary>
-    public abstract class inlayButton : gooeyButton, IPlayerControl
+    public abstract class inlaySlider : gooeySlider, IPlayerControl
     {
         #region Members
         /// <summary>
@@ -32,9 +32,9 @@ namespace in_lay_Shared.ui.controls.core
         protected netAudioPlayer _nPlayer;
 
         /// <summary>
-        /// OnClick event handler
+        /// Event hanlder when slider value changes
         /// </summary>
-        protected RoutedEventHandler _eOnClick;
+        protected RoutedEventHandler _eOnValueChanged;
         #endregion
 
         #region Properties
@@ -74,13 +74,13 @@ namespace in_lay_Shared.ui.controls.core
 
         #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="inlayButton"/> class.
+        /// Initializes a new instance of the <see cref="inlaySlider"/> class.
         /// </summary>
-        public inlayButton()
+        public inlaySlider()
             : base()
         {
-            _eOnClick = null;
             _nPlayer = null;
+            _eOnValueChanged = null;
         }
         #endregion
 
@@ -91,18 +91,18 @@ namespace in_lay_Shared.ui.controls.core
         /// <remarks>When overriding this function, you must call base.onGooeyInitializationComplete AFTER any new code.</remarks>
         public override void onGooeyInitializationComplete()
         {
-            AddHandler(ButtonBase.ClickEvent, (_eOnClick = new RoutedEventHandler(onClick)));
+            AddHandler(RangeBase.ValueChangedEvent, (_eOnValueChanged = new RoutedEventHandler(onValueChanged)));
             base.onGooeyInitializationComplete();
         }
         #endregion
 
         #region Events
         /// <summary>
-        /// Called when [click].
+        /// Called when [Value Changes].
         /// </summary>
         /// <param name="oSender">The origanal sender.</param>
         /// <param name="rArgs">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
-        public abstract void onClick(object oSender, RoutedEventArgs rArgs);
+        public abstract void onValueChanged(object oSender, RoutedEventArgs rArgs);
         #endregion
 
         #region IDisposable Members
@@ -112,8 +112,8 @@ namespace in_lay_Shared.ui.controls.core
         /// <remarks>base.Dispose must be called when overriding.</remarks>
         public override void Dispose()
         {
-            if (_eOnClick != null)
-                RemoveHandler(ButtonBase.ClickEvent, _eOnClick);
+            if (_eOnValueChanged != null)
+                RemoveHandler(RangeBase.ValueChangedEvent, _eOnValueChanged);
 
             base.Dispose();
         }

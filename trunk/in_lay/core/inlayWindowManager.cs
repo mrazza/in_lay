@@ -21,10 +21,9 @@ using netGooey.core;
 namespace in_lay.core
 {
     /// <summary>
-    /// Manages the netAudio player for in_lay
-    /// <remarks>Make sure the inlayPlayerManager and the gooeyWindow are created on the same thread</remarks>
+    /// Manages a window and netAudio player for in_lay
     /// </summary>
-    public class inlayPlayerManager
+    public class inlayWindowManager
     {
         #region Members
         /// <summary>
@@ -67,7 +66,7 @@ namespace in_lay.core
         /// Base Constructor
         /// </summary>
         /// <param name="nPlayer">netAudioPlayer to use</param>
-        public inlayPlayerManager(netAudioPlayer nPlayer)
+        public inlayWindowManager(netAudioPlayer nPlayer)
         {
             if (nPlayer == null)
                 throw new NullReferenceException("nPlayer is not set to an instance of an object.");

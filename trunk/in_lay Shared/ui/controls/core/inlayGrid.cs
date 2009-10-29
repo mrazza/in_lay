@@ -13,8 +13,6 @@
  * This software is distributed under the Microsoft Public License (Ms-PL).
  *******************************************************************/
 
-using System.Windows;
-using System.Windows.Controls.Primitives;
 using netAudio.core;
 using netGooey.controls;
 
@@ -74,6 +72,7 @@ namespace in_lay_Shared.ui.controls.core
         public inlayGrid()
             : base()
         {
+            _nPlayer = null;
         }
         #endregion
     }

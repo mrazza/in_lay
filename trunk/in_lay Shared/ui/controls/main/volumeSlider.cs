@@ -13,74 +13,33 @@
  * This software is distributed under the Microsoft Public License (Ms-PL).
  *******************************************************************/
 
+using System;
 using System.Windows;
-using System.Windows.Controls.Primitives;
-using netAudio.core;
-using netGooey.controls;
+using in_lay_Shared.ui.controls.core;
+using netAudio.core.events;
 
-namespace in_lay_Shared.ui.controls.core
+namespace in_lay_Shared.ui.controls.main
 {
     /// <summary>
-    /// Generic in_lay Button with click functionality
+    /// Slider that changes the volume of the player
     /// </summary>
-    public abstract class inlayButton : gooeyButton, IPlayerControl
+    public sealed class volumeSlider : inlaySlider
     {
         #region Members
         /// <summary>
-        /// netAudioPlayer the control manages
+        /// Player Volume Changed Event Handler
         /// </summary>
-        protected netAudioPlayer _nPlayer;
-
-        /// <summary>
-        /// OnClick event handler
-        /// </summary>
-        protected RoutedEventHandler _eOnClick;
-        #endregion
-
-        #region Properties
-        #region IPlayerControl Members
-        /// <summary>
-        /// Gets or sets the netAudioPlayer.
-        /// </summary>
-        /// <value>The netAudioPlayer.</value>
-        public virtual netAudioPlayer nPlayer
-        {
-            get
-            {
-                return _nPlayer;
-            }
-            set
-            {
-                _nPlayer = value;
-            }
-        }
-        #endregion
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is initialized.
-        /// </summary>
-        /// <value>
-        /// 	<c>true</c> if this instance is initialized; otherwise, <c>false</c>.
-        /// </value>
-        /// <remarks>If overridden, base.isGooeyInitialized must return <c>true</c> for the child version to return <c>true</c>.</remarks>
-        public override bool isGooeyInitialized
-        {
-            get
-            {
-                return base.isGooeyInitialized && (_nPlayer != null);
-            }
-        }
+        private EventHandler<volumeChangedEventArgs> ePlayerVolumeChanged;
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="inlayButton"/> class.
+        /// Initializes a new instance of the <see cref="volumeSlider"/> class.
         /// </summary>
-        public inlayButton()
+        public volumeSlider()
             : base()
         {
-            _eOnClick = null;
-            _nPlayer = null;
+            ePlayerVolumeChanged = null;
         }
         #endregion
 
@@ -91,18 +50,40 @@ namespace in_lay_Shared.ui.controls.core
         /// <remarks>When overriding this function, you must call base.onGooeyInitializationComplete AFTER any new code.</remarks>
         public override void onGooeyInitializationComplete()
         {
-            AddHandler(ButtonBase.ClickEvent, (_eOnClick = new RoutedEventHandler(onClick)));
+            _nPlayer.eVolumeChanged += (ePlayerVolumeChanged = new EventHandler<volumeChangedEventArgs>(_nPlayer_eVolumeChanged));
+            _nPlayer_eVolumeChanged(null, new volumeChangedEventArgs(_nPlayer.iVolume, _nPlayer.bMute)); //Make sure things display correctly on load
             base.onGooeyInitializationComplete();
         }
         #endregion
 
         #region Events
         /// <summary>
-        /// Called when [click].
+        /// Called when [Value Changes].
         /// </summary>
         /// <param name="oSender">The origanal sender.</param>
         /// <param name="rArgs">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
-        public abstract void onClick(object oSender, RoutedEventArgs rArgs);
+        public override void onValueChanged(object oSender, RoutedEventArgs rArgs)
+        {
+            _nPlayer.iVolume = (int)Value;
+            rArgs.Handled = true;
+        }
+
+        /// <summary>
+        /// Handles the eVolumeChanged event of the _nPlayer control.
+        /// </summary>
+        /// <remarks>Must be blocking, otherwise event trigger loop</remarks>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="netAudio.core.events.volumeChangedEventArgs"/> instance containing the event data.</param>
+        void _nPlayer_eVolumeChanged(object sender, volumeChangedEventArgs e)
+        {
+            _gSystem.invokeOnLocalThread((Action)(() =>
+            {
+                if (e.bMuted)
+                    Value = 0.0d;
+                else
+                    Value = e.iVolume;
+            }), true);
+        }
         #endregion
 
         #region IDisposable Members
@@ -112,8 +93,8 @@ namespace in_lay_Shared.ui.controls.core
         /// <remarks>base.Dispose must be called when overriding.</remarks>
         public override void Dispose()
         {
-            if (_eOnClick != null)
-                RemoveHandler(ButtonBase.ClickEvent, _eOnClick);
+            if (ePlayerVolumeChanged != null && _nPlayer != null)
+                _nPlayer.eVolumeChanged -= ePlayerVolumeChanged;
 
             base.Dispose();
         }

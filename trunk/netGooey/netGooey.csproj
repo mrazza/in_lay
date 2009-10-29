@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="controls\gooeyButton.cs" />
     <Compile Include="controls\gooeyGrid.cs" />
+    <Compile Include="controls\gooeySlider.cs" />
     <Compile Include="core\gooeySystem.cs" />
     <Compile Include="core\gooeyWindow.cs" />
     <Compile Include="core\IGooeyControl.cs" />

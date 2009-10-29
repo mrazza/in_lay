@@ -13,14 +13,10 @@
  * This software is distributed under the Microsoft Public License (Ms-PL).
  *******************************************************************/
 
-using System;
 using System.Windows;
-using netAudio.core;
+using in_lay.core;
 using netAudio.netVLC;
 using netGooey.core;
-using in_lay.core;
-using System.Windows.Threading;
-using in_lay_Shared.ui.controls.core;
 
 namespace in_lay
 {
@@ -36,10 +32,10 @@ namespace in_lay
         public App()
         {
             gooeySystem gSystem = new gooeySystem();
-            inlayPlayerManager inSys = new inlayPlayerManager(new netVLCPlayer());
+            inlayWindowManager inSys = new inlayWindowManager(new netVLCPlayer());
             inSys.generateWindow(gSystem, @"ui\default\main.xaml");
             inSys.gWindow.Show();
-            inSys.nPlayer.sMediaPath = @""; //Enter path to track here C:\someFile.mp3
+            inSys.nPlayer.sMediaPath = @"C:\Users\Mr. Pig\Desktop\music.mp3"; //Enter path to track here C:\someFile.mp3
             inSys.nPlayer.iVolume = 10;
         }
         #endregion

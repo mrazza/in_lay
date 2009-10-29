@@ -13,11 +13,11 @@
  * This software is distributed under the Microsoft Public License (Ms-PL).
  *******************************************************************/
 
+using System;
 using System.Windows;
 using in_lay_Shared.ui.controls.core;
-using netAudio.core.events;
 using netAudio.core;
-using System;
+using netAudio.core.events;
 
 namespace in_lay_Shared.ui.controls.main
 {
@@ -26,6 +26,13 @@ namespace in_lay_Shared.ui.controls.main
     /// </summary>
     public sealed class playPauseStopToggle : inlayGrid
     {
+        #region Members
+        /// <summary>
+        /// Player State Changed Event Handler
+        /// </summary>
+        private EventHandler<stateChangedEventArgs> ePlayerStateChanged;
+        #endregion
+
         #region Dependency Properties
         #region OnPlayShow
         /// <summary>
@@ -109,6 +116,17 @@ namespace in_lay_Shared.ui.controls.main
         #endregion
         #endregion
 
+        #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="playPauseStopToggle"/> class.
+        /// </summary>
+        public playPauseStopToggle()
+            : base()
+        {
+            ePlayerStateChanged = null;
+        }
+        #endregion
+
         #region Public Members
         /// <summary>
         /// Called when [initialize complete].
@@ -116,7 +134,7 @@ namespace in_lay_Shared.ui.controls.main
         /// <remarks>When overriding this function, you must call base.onGooeyInitializationComplete AFTER any new code.</remarks>
         public override void onGooeyInitializationComplete()
         {
-            _nPlayer.eStateChanged += new System.EventHandler<stateChangedEventArgs>(_nPlayer_eStateChanged);
+            _nPlayer.eStateChanged += (ePlayerStateChanged = new EventHandler<stateChangedEventArgs>(_nPlayer_eStateChanged));
             _nPlayer_eStateChanged(null, new stateChangedEventArgs(playerState.ready)); //Make sure things display correctly on load
             base.onGooeyInitializationComplete();
         }
@@ -159,6 +177,20 @@ namespace in_lay_Shared.ui.controls.main
                     }
                 }
             }));
+        }
+        #endregion
+
+        #region IDisposable Members
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        /// <remarks>base.Dispose must be called when overriding.</remarks>
+        public override void Dispose()
+        {
+            if (ePlayerStateChanged != null && _nPlayer != null)
+                _nPlayer.eStateChanged -= ePlayerStateChanged;
+
+            base.Dispose();
         }
         #endregion
     }
