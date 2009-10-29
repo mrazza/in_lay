@@ -373,8 +373,6 @@ namespace netAudio.netVLC.core
                         _vCore.handleError();
                         libvlc_event_attach(_vHandle, vlcEventType.playerEndReached, _vOnStateChanged, (IntPtr)playerState.ended, ref _vCore.vException.vExStruct);
                         _vCore.handleError();
-                        libvlc_event_attach(_vHandle, vlcEventType.playerStopped, _vOnStateChanged, (IntPtr)playerState.stopped, ref _vCore.vException.vExStruct);
-                        _vCore.handleError();
                         libvlc_event_attach(_vHandle, vlcEventType.playerEncounteredError, _vOnStateChanged, (IntPtr)playerState.error, ref _vCore.vException.vExStruct);
                         _vCore.handleError();
                         libvlc_event_attach(_vHandle, vlcEventType.playerNothingSpecial, _vOnStateChanged, (IntPtr)playerState.waiting, ref _vCore.vException.vExStruct);
@@ -414,8 +412,6 @@ namespace netAudio.netVLC.core
                 libvlc_event_detach(_vHandle, vlcEventType.playerBuffering, _vOnStateChanged, (IntPtr)playerState.buffering, ref _vCore.vException.vExStruct);
                 _vCore.handleError();
                 libvlc_event_detach(_vHandle, vlcEventType.playerEndReached, _vOnStateChanged, (IntPtr)playerState.ended, ref _vCore.vException.vExStruct);
-                _vCore.handleError();
-                libvlc_event_detach(_vHandle, vlcEventType.playerStopped, _vOnStateChanged, (IntPtr)playerState.stopped, ref _vCore.vException.vExStruct);
                 _vCore.handleError();
                 libvlc_event_detach(_vHandle, vlcEventType.playerNothingSpecial, _vOnStateChanged, (IntPtr)playerState.waiting, ref _vCore.vException.vExStruct);
                 _vCore.handleError();
