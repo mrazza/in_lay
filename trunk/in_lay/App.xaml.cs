@@ -35,7 +35,7 @@ namespace in_lay
             inlayWindowManager inSys = new inlayWindowManager(new netVLCPlayer());
             inSys.generateWindow(gSystem, @"ui\default\main.xaml");
             inSys.gWindow.Show();
-            inSys.nPlayer.sMediaPath = @"C:\Users\Mr. Pig\Desktop\music.mp3"; //Enter path to track here C:\someFile.mp3
+            inSys.nPlayer.sMediaPath = @""; //Enter path to track here C:\someFile.mp3
             inSys.nPlayer.iVolume = 10;
         }
         #endregion
