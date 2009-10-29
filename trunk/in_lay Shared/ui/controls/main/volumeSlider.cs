@@ -18,7 +18,7 @@ using System.Windows;
 using in_lay_Shared.ui.controls.core;
 using netAudio.core.events;
 
-namespace in_lay_Shared.ui.controls.main
+namespace in_lay_Shared.ui.controls.playback
 {
     /// <summary>
     /// Slider that changes the volume of the player

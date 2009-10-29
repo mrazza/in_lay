@@ -19,7 +19,7 @@ using in_lay_Shared.ui.controls.core;
 using netAudio.core;
 using netAudio.core.events;
 
-namespace in_lay_Shared.ui.controls.main
+namespace in_lay_Shared.ui.controls.playback
 {
     /// <summary>
     /// Grid grouping used to toggle between what is displayed when a track is playing or when it is paused/stopped

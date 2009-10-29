@@ -20,7 +20,7 @@ using netGooey.core;
 namespace netGooey.controls
 {
     /// <summary>
-    /// Abstract netGooey Slider Control
+    /// Abstract netGooey Slider Implementation
     /// </summary>
     public abstract class gooeySlider : Slider, IGooeyControl
     {
@@ -104,7 +104,7 @@ namespace netGooey.controls
 
         #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="inlaySlider"/> class.
+        /// Initializes a new instance of the <see cref="gooeySlider"/> class.
         /// </summary>
         public gooeySlider()
             : base()

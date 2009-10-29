@@ -16,7 +16,7 @@
 using System.Windows;
 using in_lay_Shared.ui.controls.core;
 
-namespace in_lay_Shared.ui.controls.main
+namespace in_lay_Shared.ui.controls.playback
 {
     /// <summary>
     /// Triggers playback of the netAudioObject attached
