@@ -50,7 +50,10 @@ namespace testing
         void player_eStateChanged(object sender, netAudio.core.events.stateChangedEventArgs e)
         {
             if (InvokeRequired)
+            {
                 BeginInvoke(new player_eStateChangedDel(player_eStateChanged), sender, e);
+                Console.WriteLine("State: " + e.pState);
+            }
             else if (e.pState == playerState.ended)
             {
                 iLastTrack++;
