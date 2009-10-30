@@ -149,12 +149,59 @@ namespace netAudio.core
         }
 
         /// <summary>
-        /// To String
+        /// Returns a <see cref="System.String"/> that represents this instance.
         /// </summary>
-        /// <returns>String Representation</returns>
+        /// <returns>
+        /// A <see cref="System.String"/> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return sTitle + " - " + sArtist;
+        }
+
+        /// <summary>
+        /// Returns a <see cref="System.Object"/> array that represents this instance.
+        /// </summary>
+        /// <remarks>
+        /// Order in which the data is returned:
+        /// sTitle, 
+        /// sArtist, 
+        /// sAlbum,
+        /// sAlbumArtist,
+        /// sComposer,
+        /// iYear,
+        /// sComment,
+        /// iTrack,
+        /// iTotalTracks,
+        /// iDisk,
+        /// iTotalDisks,
+        /// sGenre,
+        /// sArtURL,
+        /// iRating,
+        /// tLength
+        /// </remarks>
+        /// <returns>
+        /// A <see cref="System.Object"/> array that represents this instance.
+        /// </returns>
+        public object[] ToArray()
+        {
+            return new object[] {
+                sTitle, 
+                sArtist, 
+                sAlbum,
+                sAlbumArtist,
+                sComposer,
+                iYear,
+                sComment,
+                iTrack,
+                iTotalTracks,
+                iDisk,
+                iTotalDisks,
+                sGenre,
+                sArtURL,
+                iRating,
+                tLength
+            };
         }
     }
 }
