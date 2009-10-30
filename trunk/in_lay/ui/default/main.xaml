@@ -17,10 +17,11 @@
 <Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Width="500" Height="500"
     xmlns:playback="clr-namespace:in_lay_Shared.ui.controls.playback;assembly=in_lay_Shared">
-    <playback:playPauseStopToggle>
-        <playback:playButton playback:playPauseStopToggle.OnPauseShow="True" playback:playPauseStopToggle.OnStopShow="True" Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="78" Margin="65,129,0,0">Play</playback:playButton>
-        <playback:pauseButton playback:playPauseStopToggle.OnPlayShow="True"  Height="63" VerticalAlignment="Top" Margin="149,129,0,0" HorizontalAlignment="Left" Width="78">Pause</playback:pauseButton>
-    </playback:playPauseStopToggle>
     <playback:volumeSlider Maximum="100" Minimum="0" Margin="42,208,62,0" Height="30" VerticalAlignment="Top" TickFrequency="10" TickPlacement="BottomRight" />
     <playback:stopButton Height="63" VerticalAlignment="Top" Margin="233,129,189,0">Stop</playback:stopButton>
+    <playback:playPauseStopToggle Height="82" VerticalAlignment="Top" HorizontalAlignment="Left" Width="160" Margin="67,120,0,0">
+        <playback:playButton playback:playPauseStopToggle.OnPauseShow="True" playback:playPauseStopToggle.OnStopShow="True" Height="63" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="78" Margin="0,0,0,10">Play</playback:playButton>
+        <playback:pauseButton playback:playPauseStopToggle.OnPlayShow="True" Height="63" VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Right" Width="76">Pause</playback:pauseButton>
+    </playback:playPauseStopToggle>
+    <playback:trackDataLabel OnNullText="No Track" OnTrackText="%a - %t" Height="50" Margin="42,50,62,0" VerticalAlignment="Top" />
 </Grid>

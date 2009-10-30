@@ -33,10 +33,10 @@ namespace in_lay
         {
             gooeySystem gSystem = new gooeySystem();
             inlayWindowManager inSys = new inlayWindowManager(new netVLCPlayer());
-            inSys.generateWindow(gSystem, @"ui\default\main.xaml");
-            inSys.gWindow.Show();
             inSys.nPlayer.sMediaPath = @""; //Enter path to track here C:\someFile.mp3
             inSys.nPlayer.iVolume = 10;
+            inSys.generateWindow(gSystem, @"ui\default\main.xaml");
+            inSys.gWindow.Show();
         }
         #endregion
     }

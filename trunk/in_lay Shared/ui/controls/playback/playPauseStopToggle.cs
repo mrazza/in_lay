@@ -146,7 +146,7 @@ namespace in_lay_Shared.ui.controls.playback
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="netAudio.core.events.stateChangedEventArgs"/> instance containing the event data.</param>
-        void _nPlayer_eStateChanged(object sender, stateChangedEventArgs e)
+        private void _nPlayer_eStateChanged(object sender, stateChangedEventArgs e)
         {
             _gSystem.invokeOnLocalThread((Action)(() =>
             {
