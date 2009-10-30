@@ -62,7 +62,7 @@ namespace in_lay_Shared.ui.controls.playback
         /// </summary>
         /// <param name="oSender">The origanal sender.</param>
         /// <param name="rArgs">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
-        public override void onValueChanged(object oSender, RoutedEventArgs rArgs)
+        protected override void onValueChanged(object oSender, RoutedEventArgs rArgs)
         {
             _nPlayer.iVolume = (int)Value;
             rArgs.Handled = true;
@@ -74,7 +74,7 @@ namespace in_lay_Shared.ui.controls.playback
         /// <remarks>Must be blocking, otherwise event trigger loop</remarks>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="netAudio.core.events.volumeChangedEventArgs"/> instance containing the event data.</param>
-        void _nPlayer_eVolumeChanged(object sender, volumeChangedEventArgs e)
+        private void _nPlayer_eVolumeChanged(object sender, volumeChangedEventArgs e)
         {
             _gSystem.invokeOnLocalThread((Action)(() =>
             {

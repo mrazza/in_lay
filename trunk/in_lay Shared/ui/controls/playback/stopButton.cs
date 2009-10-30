@@ -29,7 +29,7 @@ namespace in_lay_Shared.ui.controls.playback
         /// </summary>
         /// <param name="oSender">The origanal sender.</param>
         /// <param name="rArgs">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
-        public override void onClick(object oSender, RoutedEventArgs rArgs)
+        protected override void onClick(object oSender, RoutedEventArgs rArgs)
         {
             _nPlayer.stopMedia();
             rArgs.Handled = true;

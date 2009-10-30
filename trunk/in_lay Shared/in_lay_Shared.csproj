@@ -58,6 +58,7 @@
     <Compile Include="ui\controls\core\IPlayerControl.cs" />
     <Compile Include="ui\controls\playback\playPauseStopToggle.cs" />
     <Compile Include="ui\controls\playback\stopButton.cs" />
+    <Compile Include="ui\controls\playback\trackDataLabel.cs" />
     <Compile Include="ui\controls\playback\volumeSlider.cs" />
   </ItemGroup>
   <ItemGroup>

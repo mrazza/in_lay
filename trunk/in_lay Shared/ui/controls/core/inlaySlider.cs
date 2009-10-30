@@ -102,7 +102,7 @@ namespace in_lay_Shared.ui.controls.core
         /// </summary>
         /// <param name="oSender">The origanal sender.</param>
         /// <param name="rArgs">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
-        public abstract void onValueChanged(object oSender, RoutedEventArgs rArgs);
+        protected abstract void onValueChanged(object oSender, RoutedEventArgs rArgs);
         #endregion
 
         #region IDisposable Members
