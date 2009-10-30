@@ -23,5 +23,6 @@
         <playback:playButton playback:playPauseStopToggle.OnPauseShow="True" playback:playPauseStopToggle.OnStopShow="True" Height="63" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="78" Margin="0,0,0,10">Play</playback:playButton>
         <playback:pauseButton playback:playPauseStopToggle.OnPlayShow="True" Height="63" VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Right" Width="76">Pause</playback:pauseButton>
     </playback:playPauseStopToggle>
-    <playback:trackDataLabel OnNullText="No Track" OnTrackText="%a - %t" Height="50" Margin="42,50,62,0" VerticalAlignment="Top" />
+    <playback:trackDataLabel OnNullText="No Track" OnTrackText="{}{1} - {0}" Height="50" Margin="106,50,24,0" VerticalAlignment="Top" />
+    <Label Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Width="82" Margin="42,50,0,0">Track Info:</Label>
 </Grid>

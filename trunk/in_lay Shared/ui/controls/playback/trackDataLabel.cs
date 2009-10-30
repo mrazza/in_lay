@@ -103,12 +103,7 @@ namespace in_lay_Shared.ui.controls.playback
         public override void onGooeyInitializationComplete()
         {
             _nPlayer.eStateChanged += (ePlayerStateChanged = new EventHandler<stateChangedEventArgs>(_nPlayer_eStateChanged));
-
-            playerState pCurr = playerState.ready;
-            if (_nPlayer.sMediaPath != null)
-                pCurr = playerState.opening;
-
-            _nPlayer_eStateChanged(null, new stateChangedEventArgs(pCurr)); //Make sure things display correctly on load
+            _nPlayer_eStateChanged(null, new stateChangedEventArgs(_nPlayer.pState)); //Make sure things display correctly on load
             base.onGooeyInitializationComplete();
         }
         #endregion
@@ -174,11 +169,7 @@ namespace in_lay_Shared.ui.controls.playback
         private string formatText(string sText)
         {
             metaData mData = _nPlayer.mTrackData;
-            sText = sText.Replace("%a", mData.sArtist);
-            sText = sText.Replace("%t", mData.sTitle);
-            sText = sText.Replace("%b", mData.sAlbum);
-
-            return sText;
+            return String.Format(sText, mData.ToArray());
         }
         #endregion
 
