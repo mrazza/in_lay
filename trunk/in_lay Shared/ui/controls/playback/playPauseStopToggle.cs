@@ -30,7 +30,7 @@ namespace in_lay_Shared.ui.controls.playback
         /// <summary>
         /// Player State Changed Event Handler
         /// </summary>
-        private EventHandler<stateChangedEventArgs> ePlayerStateChanged;
+        private EventHandler<stateChangedEventArgs> _ePlayerStateChanged;
         #endregion
 
         #region Dependency Properties
@@ -123,7 +123,7 @@ namespace in_lay_Shared.ui.controls.playback
         public playPauseStopToggle()
             : base()
         {
-            ePlayerStateChanged = null;
+            _ePlayerStateChanged = null;
         }
         #endregion
 
@@ -134,7 +134,7 @@ namespace in_lay_Shared.ui.controls.playback
         /// <remarks>When overriding this function, you must call base.onGooeyInitializationComplete AFTER any new code.</remarks>
         public override void onGooeyInitializationComplete()
         {
-            _nPlayer.eStateChanged += (ePlayerStateChanged = new EventHandler<stateChangedEventArgs>(_nPlayer_eStateChanged));
+            _nPlayer.eStateChanged += (_ePlayerStateChanged = new EventHandler<stateChangedEventArgs>(_nPlayer_eStateChanged));
             _nPlayer_eStateChanged(null, new stateChangedEventArgs(playerState.ready)); //Make sure things display correctly on load
             base.onGooeyInitializationComplete();
         }
@@ -187,8 +187,8 @@ namespace in_lay_Shared.ui.controls.playback
         /// <remarks>base.Dispose must be called when overriding.</remarks>
         public override void Dispose()
         {
-            if (ePlayerStateChanged != null && _nPlayer != null)
-                _nPlayer.eStateChanged -= ePlayerStateChanged;
+            if (_ePlayerStateChanged != null && _nPlayer != null)
+                _nPlayer.eStateChanged -= _ePlayerStateChanged;
 
             base.Dispose();
         }

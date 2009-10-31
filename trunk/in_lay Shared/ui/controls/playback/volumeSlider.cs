@@ -29,7 +29,7 @@ namespace in_lay_Shared.ui.controls.playback
         /// <summary>
         /// Player Volume Changed Event Handler
         /// </summary>
-        private EventHandler<volumeChangedEventArgs> ePlayerVolumeChanged;
+        private EventHandler<volumeChangedEventArgs> _ePlayerVolumeChanged;
         #endregion
 
         #region Constructor
@@ -39,7 +39,7 @@ namespace in_lay_Shared.ui.controls.playback
         public volumeSlider()
             : base()
         {
-            ePlayerVolumeChanged = null;
+            _ePlayerVolumeChanged = null;
         }
         #endregion
 
@@ -50,7 +50,7 @@ namespace in_lay_Shared.ui.controls.playback
         /// <remarks>When overriding this function, you must call base.onGooeyInitializationComplete AFTER any new code.</remarks>
         public override void onGooeyInitializationComplete()
         {
-            _nPlayer.eVolumeChanged += (ePlayerVolumeChanged = new EventHandler<volumeChangedEventArgs>(_nPlayer_eVolumeChanged));
+            _nPlayer.eVolumeChanged += (_ePlayerVolumeChanged = new EventHandler<volumeChangedEventArgs>(_nPlayer_eVolumeChanged));
             _nPlayer_eVolumeChanged(null, new volumeChangedEventArgs(_nPlayer.iVolume, _nPlayer.bMute)); //Make sure things display correctly on load
             base.onGooeyInitializationComplete();
         }
@@ -93,8 +93,8 @@ namespace in_lay_Shared.ui.controls.playback
         /// <remarks>base.Dispose must be called when overriding.</remarks>
         public override void Dispose()
         {
-            if (ePlayerVolumeChanged != null && _nPlayer != null)
-                _nPlayer.eVolumeChanged -= ePlayerVolumeChanged;
+            if (_ePlayerVolumeChanged != null && _nPlayer != null)
+                _nPlayer.eVolumeChanged -= _ePlayerVolumeChanged;
 
             base.Dispose();
         }

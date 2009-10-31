@@ -22,15 +22,15 @@ using netAudio.core.events;
 namespace in_lay_Shared.ui.controls.playback
 {
     /// <summary>
-    /// Label that displays specific meta data for a current track
+    /// Label that displays playback related data for the player
     /// </summary>
-    public sealed class trackDataLabel : inlayLabel
+    public sealed class playerDataLabel : inlayLabel
     {
         #region Members
         /// <summary>
-        /// Player State Changed Event Handler
+        /// Player Position Changed Event Handler
         /// </summary>
-        private EventHandler<stateChangedEventArgs> _ePlayerStateChanged;
+        private EventHandler<positionChangedEventArgs> _ePositionChanged;
 
         /// <summary>
         /// Is the current text track text?
@@ -86,12 +86,12 @@ namespace in_lay_Shared.ui.controls.playback
 
         #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="trackDataLabel"/> class.
+        /// Initializes a new instance of the <see cref="playerDataLabel"/> class.
         /// </summary>
-        public trackDataLabel()
+        public playerDataLabel()
             : base()
         {
-            _ePlayerStateChanged = null;
+            _ePositionChanged = null;
         }
         #endregion
 
@@ -102,35 +102,21 @@ namespace in_lay_Shared.ui.controls.playback
         /// <remarks>When overriding this function, you must call base.onGooeyInitializationComplete AFTER any new code.</remarks>
         public override void onGooeyInitializationComplete()
         {
-            _nPlayer.eStateChanged += (_ePlayerStateChanged = new EventHandler<stateChangedEventArgs>(_nPlayer_eStateChanged));
-            _nPlayer_eStateChanged(null, new stateChangedEventArgs(_nPlayer.pState)); //Make sure things display correctly on load
+            _nPlayer.ePositionChanged += (_ePositionChanged = new EventHandler<positionChangedEventArgs>(_nPlayer_ePositionChanged));
+            _nPlayer_ePositionChanged(null, new positionChangedEventArgs(_nPlayer.lPosition, _nPlayer.fPosition)); //Make sure things display correctly on load
             base.onGooeyInitializationComplete();
         }
         #endregion
 
         #region Events
         /// <summary>
-        /// Handles the eStateChanged event of the _nPlayer control.
+        /// Handles the ePositionChanged event of the _nPlayer control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="netAudio.core.events.stateChangedEventArgs"/> instance containing the event data.</param>
-        private void _nPlayer_eStateChanged(object sender, stateChangedEventArgs e)
+        /// <param name="e">The <see cref="netAudio.core.events.positionChangedEventArgs"/> instance containing the event data.</param>
+        private void _nPlayer_ePositionChanged(object sender, positionChangedEventArgs e)
         {
-            _gSystem.invokeOnLocalThread((Action)(() =>
-            {
-                switch (e.pState)
-                {
-                    case playerState.playing:
-                    case playerState.paused:
-                    case playerState.opening:
-                        displayTrackText();
-                        break;
-
-                    default:
-                        displayNullText();
-                        break;
-                }
-            }), true);
+            throw new NotImplementedException();
         }
         #endregion
 
@@ -180,8 +166,8 @@ namespace in_lay_Shared.ui.controls.playback
         /// <remarks>base.Dispose must be called when overriding.</remarks>
         public override void Dispose()
         {
-            if (_ePlayerStateChanged != null && _nPlayer != null)
-                _nPlayer.eStateChanged -= _ePlayerStateChanged;
+            if (_ePositionChanged != null && _nPlayer != null)
+                _nPlayer.ePositionChanged -= _ePositionChanged;
 
             base.Dispose();
         }
