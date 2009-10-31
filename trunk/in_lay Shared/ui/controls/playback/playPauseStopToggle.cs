@@ -127,19 +127,6 @@ namespace in_lay_Shared.ui.controls.playback
         }
         #endregion
 
-        #region Public Members
-        /// <summary>
-        /// Called when [initialize complete].
-        /// </summary>
-        /// <remarks>When overriding this function, you must call base.onGooeyInitializationComplete AFTER any new code.</remarks>
-        public override void onGooeyInitializationComplete()
-        {
-            _nPlayer.eStateChanged += (_ePlayerStateChanged = new EventHandler<stateChangedEventArgs>(_nPlayer_eStateChanged));
-            _nPlayer_eStateChanged(null, new stateChangedEventArgs(playerState.ready)); //Make sure things display correctly on load
-            base.onGooeyInitializationComplete();
-        }
-        #endregion
-
         #region Events
         /// <summary>
         /// Handles the eStateChanged event of the _nPlayer control.
@@ -177,6 +164,19 @@ namespace in_lay_Shared.ui.controls.playback
                     }
                 }
             }));
+        }
+        #endregion
+
+        #region Private Members
+        /// <summary>
+        /// Completes the initialization.
+        /// </summary>
+        /// <remarks>When overriding this function, you must call base.completeInitialization AFTER any new code.</remarks>
+        protected override void completeInitialization()
+        {
+            _nPlayer.eStateChanged += (_ePlayerStateChanged = new EventHandler<stateChangedEventArgs>(_nPlayer_eStateChanged));
+            _nPlayer_eStateChanged(null, new stateChangedEventArgs(playerState.ready)); //Make sure things display correctly on load
+            base.completeInitialization();
         }
         #endregion
 

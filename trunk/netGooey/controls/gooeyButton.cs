@@ -117,16 +117,26 @@ namespace netGooey.controls
 
         #region IGooeyControl Members
         /// <summary>
-        /// Called when [initialize complete].
+        /// Called when [initialization complete].
         /// </summary>
-        /// <remarks>When overriding this function, you must call base.onGooeyInitializationComplete AFTER any new code.</remarks>
-        public virtual void onGooeyInitializationComplete()
+        /// <remarks>This function must fail if the object has already been initialized.</remarks>
+        public void onGooeyInitializationComplete()
         {
             if (_isInitializationComplete)
                 throw new InvalidOperationException("Can not execute onGooeyInitializationComplete() because the object has already been initialized.");
 
+            completeInitialization();
+
             _isInitializationComplete = true;
         }
+        #endregion
+
+        #region Private Members
+        /// <summary>
+        /// Completes the initialization.
+        /// </summary>
+        /// <remarks>When overriding this function, you must call base.completeInitialization AFTER any new code.</remarks>
+        protected virtual void completeInitialization() { }
         #endregion
 
         #region IDisposable Members

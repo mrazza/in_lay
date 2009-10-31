@@ -84,18 +84,6 @@ namespace in_lay_Shared.ui.controls.core
         }
         #endregion
 
-        #region Public Members
-        /// <summary>
-        /// Called when [initialize complete].
-        /// </summary>
-        /// <remarks>When overriding this function, you must call base.onGooeyInitializationComplete AFTER any new code.</remarks>
-        public override void onGooeyInitializationComplete()
-        {
-            AddHandler(ButtonBase.ClickEvent, (_eOnClick = new RoutedEventHandler(onClick)));
-            base.onGooeyInitializationComplete();
-        }
-        #endregion
-
         #region Events
         /// <summary>
         /// Called when [click].
@@ -103,6 +91,18 @@ namespace in_lay_Shared.ui.controls.core
         /// <param name="oSender">The origanal sender.</param>
         /// <param name="rArgs">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
         protected abstract void onClick(object oSender, RoutedEventArgs rArgs);
+        #endregion
+
+        #region Private Members
+        /// <summary>
+        /// Completes the initialization.
+        /// </summary>
+        /// <remarks>When overriding this function, you must call base.completeInitialization AFTER any new code.</remarks>
+        protected override void completeInitialization()
+        {
+            AddHandler(ButtonBase.ClickEvent, (_eOnClick = new RoutedEventHandler(onClick)));
+            base.completeInitialization();
+        }
         #endregion
 
         #region IDisposable Members

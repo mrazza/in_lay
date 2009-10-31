@@ -31,11 +31,6 @@ namespace in_lay_Shared.ui.controls.playback
         /// Player Position Changed Event Handler
         /// </summary>
         private EventHandler<positionChangedEventArgs> _ePositionChanged;
-
-        /// <summary>
-        /// Is the current text track text?
-        /// </summary>
-        private bool _bCurrentIsTrackText;
         #endregion
 
         #region Dependency Properties
@@ -95,19 +90,6 @@ namespace in_lay_Shared.ui.controls.playback
         }
         #endregion
 
-        #region Public Members
-        /// <summary>
-        /// Called when [initialize complete].
-        /// </summary>
-        /// <remarks>When overriding this function, you must call base.onGooeyInitializationComplete AFTER any new code.</remarks>
-        public override void onGooeyInitializationComplete()
-        {
-            _nPlayer.ePositionChanged += (_ePositionChanged = new EventHandler<positionChangedEventArgs>(_nPlayer_ePositionChanged));
-            _nPlayer_ePositionChanged(null, new positionChangedEventArgs(_nPlayer.lPosition, _nPlayer.fPosition)); //Make sure things display correctly on load
-            base.onGooeyInitializationComplete();
-        }
-        #endregion
-
         #region Events
         /// <summary>
         /// Handles the ePositionChanged event of the _nPlayer control.
@@ -122,40 +104,14 @@ namespace in_lay_Shared.ui.controls.playback
 
         #region Private Members
         /// <summary>
-        /// Displays the track text.
+        /// Completes the initialization.
         /// </summary>
-        private void displayTrackText()
+        /// <remarks>When overriding this function, you must call base.completeInitialization AFTER any new code.</remarks>
+        protected override void completeInitialization()
         {
-            if (_bCurrentIsTrackText && _isInitializationComplete)
-                return;
-
-            Content = formatText(OnTrackText);
-
-            _bCurrentIsTrackText = true;
-        }
-
-        /// <summary>
-        /// Displays the null text.
-        /// </summary>
-        private void displayNullText()
-        {
-            if (!_bCurrentIsTrackText && _isInitializationComplete)
-                return;
-
-            Content = OnNullText;
-
-            _bCurrentIsTrackText = false;
-        }
-
-        /// <summary>
-        /// Formats the text.
-        /// </summary>
-        /// <param name="sText">The text to format.</param>
-        /// <returns></returns>
-        private string formatText(string sText)
-        {
-            metaData mData = _nPlayer.mTrackData;
-            return String.Format(sText, mData.ToArray());
+            _nPlayer.ePositionChanged += (_ePositionChanged = new EventHandler<positionChangedEventArgs>(_nPlayer_ePositionChanged));
+            _nPlayer_ePositionChanged(null, new positionChangedEventArgs(_nPlayer.lPosition, _nPlayer.fPosition)); //Make sure things display correctly on load
+            base.completeInitialization();
         }
         #endregion
 
