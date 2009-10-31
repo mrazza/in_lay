@@ -63,6 +63,7 @@ namespace netGooey.core
         /// <summary>
         /// Called when [initialization complete].
         /// </summary>
+        /// <remarks>This function must fail if the object has already been initialized.</remarks>
         void onGooeyInitializationComplete();
         #endregion
     }

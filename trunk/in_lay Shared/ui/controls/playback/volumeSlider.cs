@@ -43,19 +43,6 @@ namespace in_lay_Shared.ui.controls.playback
         }
         #endregion
 
-        #region Public Members
-        /// <summary>
-        /// Called when [initialize complete].
-        /// </summary>
-        /// <remarks>When overriding this function, you must call base.onGooeyInitializationComplete AFTER any new code.</remarks>
-        public override void onGooeyInitializationComplete()
-        {
-            _nPlayer.eVolumeChanged += (_ePlayerVolumeChanged = new EventHandler<volumeChangedEventArgs>(_nPlayer_eVolumeChanged));
-            _nPlayer_eVolumeChanged(null, new volumeChangedEventArgs(_nPlayer.iVolume, _nPlayer.bMute)); //Make sure things display correctly on load
-            base.onGooeyInitializationComplete();
-        }
-        #endregion
-
         #region Events
         /// <summary>
         /// Called when [Value Changes].
@@ -83,6 +70,19 @@ namespace in_lay_Shared.ui.controls.playback
                 else
                     Value = e.iVolume;
             }), true);
+        }
+        #endregion
+
+        #region Private Members
+        /// <summary>
+        /// Completes the initialization.
+        /// </summary>
+        /// <remarks>When overriding this function, you must call base.completeInitialization AFTER any new code.</remarks>
+        protected override void completeInitialization()
+        {
+            _nPlayer.eVolumeChanged += (_ePlayerVolumeChanged = new EventHandler<volumeChangedEventArgs>(_nPlayer_eVolumeChanged));
+            _nPlayer_eVolumeChanged(null, new volumeChangedEventArgs(_nPlayer.iVolume, _nPlayer.bMute)); //Make sure things display correctly on load
+            base.completeInitialization();
         }
         #endregion
 
