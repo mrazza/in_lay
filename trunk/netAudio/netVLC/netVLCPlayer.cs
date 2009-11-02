@@ -300,7 +300,7 @@ namespace netAudio.netVLC
         /// Empty Constructor
         /// </summary>
         public netVLCPlayer()
-            : this(AppDomain.CurrentDomain.BaseDirectory, AppDomain.CurrentDomain.BaseDirectory + "plugins\\", new string[] {"-I", "dummy", "--ignore-config"}) { }
+            : this(AppDomain.CurrentDomain.BaseDirectory, AppDomain.CurrentDomain.BaseDirectory + "plugins\\", new string[] { "-I", "dummy", "--ignore-config", "--verbose=0", "--no-media-library", "--no-video", "--vout", "dummy", "--control", "" }) { }
 
         /// <summary>
         /// Constructor

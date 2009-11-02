@@ -22,9 +22,9 @@ using netAudio.core.events;
 namespace in_lay_Shared.ui.controls.playback
 {
     /// <summary>
-    /// Label that displays playback related data for the player
+    /// Label that displays playback position related data for the player
     /// </summary>
-    public sealed class playerDataLabel : inlayLabel
+    public sealed class playerPosDataLabel : inlayLabel
     {
         #region Members
         /// <summary>
@@ -81,9 +81,9 @@ namespace in_lay_Shared.ui.controls.playback
 
         #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="playerDataLabel"/> class.
+        /// Initializes a new instance of the <see cref="playerPosDataLabel"/> class.
         /// </summary>
-        public playerDataLabel()
+        public playerPosDataLabel()
             : base()
         {
             _ePositionChanged = null;
