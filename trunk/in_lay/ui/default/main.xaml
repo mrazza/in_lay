@@ -25,4 +25,5 @@
     </playback:playPauseStopToggle>
     <playback:trackDataLabel OnNullText="No Track" OnTrackText="{}{1} - {0}" Height="50" Margin="106,50,24,0" VerticalAlignment="Top" />
     <Label Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Width="82" Margin="42,50,0,0">Track Info:</Label>
+    <playback:playerPosDataLabel OnNullText="-:--" OnTrackText="{}{0:m:ss}" />
 </Grid>

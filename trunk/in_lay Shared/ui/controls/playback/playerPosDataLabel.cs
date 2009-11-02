@@ -31,6 +31,16 @@ namespace in_lay_Shared.ui.controls.playback
         /// Player Position Changed Event Handler
         /// </summary>
         private EventHandler<positionChangedEventArgs> _ePositionChanged;
+
+        /// <summary>
+        /// Player State Changed Event Args
+        /// </summary>
+        private EventHandler<stateChangedEventArgs> _eStateChanged;
+
+        /// <summary>
+        /// Is the current text track text?
+        /// </summary>
+        private bool _bCurrentIsTrackText;
         #endregion
 
         #region Dependency Properties
@@ -87,6 +97,8 @@ namespace in_lay_Shared.ui.controls.playback
             : base()
         {
             _ePositionChanged = null;
+            _eStateChanged = null;
+            _bCurrentIsTrackText = false;
         }
         #endregion
 
@@ -98,7 +110,39 @@ namespace in_lay_Shared.ui.controls.playback
         /// <param name="e">The <see cref="netAudio.core.events.positionChangedEventArgs"/> instance containing the event data.</param>
         private void _nPlayer_ePositionChanged(object sender, positionChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            _gSystem.invokeOnLocalThread((Action)(() =>
+            {
+                Content = string.Format(OnTrackText, new TimeSpan(e.lPosition * 1000), e.fPosition);
+                _bCurrentIsTrackText = true;
+            }));
+        }
+
+        /// <summary>
+        /// Handles the eStateChanged event of the _nPlayer control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="netAudio.core.events.stateChangedEventArgs"/> instance containing the event data.</param>
+        private void _nPlayer_eStateChanged(object sender, stateChangedEventArgs e)
+        {
+            switch (e.pState)
+            {
+                case playerState.playing:
+                case playerState.paused:
+                case playerState.opening:
+                    return;
+
+                default:
+                    if (!_bCurrentIsTrackText && _isInitializationComplete)
+                        return;
+
+                    _gSystem.invokeOnLocalThread((Action)(() =>
+                    {
+                        Content = OnNullText;
+                    }));
+
+                    _bCurrentIsTrackText = false;
+                    break;
+            }
         }
         #endregion
 
@@ -110,7 +154,8 @@ namespace in_lay_Shared.ui.controls.playback
         protected override void completeInitialization()
         {
             _nPlayer.ePositionChanged += (_ePositionChanged = new EventHandler<positionChangedEventArgs>(_nPlayer_ePositionChanged));
-            _nPlayer_ePositionChanged(null, new positionChangedEventArgs(_nPlayer.lPosition, _nPlayer.fPosition)); //Make sure things display correctly on load
+            _nPlayer.eStateChanged += (_eStateChanged = new EventHandler<stateChangedEventArgs>(_nPlayer_eStateChanged));
+            _nPlayer_eStateChanged(null, new stateChangedEventArgs(_nPlayer.pState));
             base.completeInitialization();
         }
         #endregion
@@ -124,6 +169,9 @@ namespace in_lay_Shared.ui.controls.playback
         {
             if (_ePositionChanged != null && _nPlayer != null)
                 _nPlayer.ePositionChanged -= _ePositionChanged;
+
+            if (_eStateChanged != null && _nPlayer != null)
+                _nPlayer.eStateChanged -= _eStateChanged;
 
             base.Dispose();
         }
