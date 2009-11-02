@@ -48,7 +48,7 @@ namespace in_lay_Shared.ui.controls.playback
         /// <summary>
         /// Text to display when there is a track loaded
         /// </summary>
-        public static readonly DependencyProperty onTrackTextProperty = DependencyProperty.Register("OnTrackText", typeof(string), typeof(trackDataLabel), new PropertyMetadata(null));
+        public static readonly DependencyProperty onTrackTextProperty = DependencyProperty.Register("OnTrackText", typeof(string), typeof(playerPosDataLabel), new PropertyMetadata(null));
 
         /// <summary>
         /// Text to display when there is a track loaded
@@ -70,7 +70,7 @@ namespace in_lay_Shared.ui.controls.playback
         /// <summary>
         /// Text to display when there is no track loaded
         /// </summary>
-        public static readonly DependencyProperty onNullTextProperty = DependencyProperty.Register("OnNullText", typeof(string), typeof(trackDataLabel), new PropertyMetadata(null));
+        public static readonly DependencyProperty onNullTextProperty = DependencyProperty.Register("OnNullText", typeof(string), typeof(playerPosDataLabel), new PropertyMetadata(null));
 
         /// <summary>
         /// Text to display when there is no track loaded
@@ -112,7 +112,7 @@ namespace in_lay_Shared.ui.controls.playback
         {
             _gSystem.invokeOnLocalThread((Action)(() =>
             {
-                Content = string.Format(OnTrackText, new TimeSpan(e.lPosition * 1000), e.fPosition);
+                Content = string.Format(OnTrackText, new DateTime(e.lPosition * 10000), e.fPosition);
                 _bCurrentIsTrackText = true;
             }));
         }
