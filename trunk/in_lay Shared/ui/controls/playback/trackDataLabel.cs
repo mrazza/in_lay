@@ -164,7 +164,7 @@ namespace in_lay_Shared.ui.controls.playback
         /// Formats the text.
         /// </summary>
         /// <param name="sText">The text to format.</param>
-        /// <returns></returns>
+        /// <returns>Formatted Text</returns>
         private string formatText(string sText)
         {
             metaData mData = _nPlayer.mTrackData;
