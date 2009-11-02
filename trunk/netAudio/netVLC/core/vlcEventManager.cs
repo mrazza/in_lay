@@ -336,7 +336,8 @@ namespace netAudio.netVLC.core
         /// <param name="pUserData">User Supplied Data</param>
         private void onPositionChanged(ref vlcCallbackArgs vCallbackArgs, IntPtr pUserData)
         {
-            invokePositionChanged(new positionChangedEventArgs(_vPlayer.lPosition, vCallbackArgs.vPlayerPositionChanged.fPosition));
+            //invokePositionChanged(new positionChangedEventArgs(_vPlayer.lPosition, vCallbackArgs.vPlayerPositionChanged.fPosition)); //Replaced because the callback args were returning null
+            invokePositionChanged(new positionChangedEventArgs(_vPlayer.lPosition, _vPlayer.fPosition));
         }
 
         /// <summary>

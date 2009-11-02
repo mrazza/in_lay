@@ -18,7 +18,7 @@ using System.Windows.Controls.Primitives;
 using netAudio.core;
 using netGooey.controls;
 
-namespace in_lay_Shared.ui.controls.core
+namespace inlayShared.ui.controls.core
 {
     /// <summary>
     /// Generic in_lay Button with click functionality

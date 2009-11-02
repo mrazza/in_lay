@@ -22,9 +22,9 @@ using netAudio.core.events;
 namespace inlayShared.ui.controls.playback
 {
     /// <summary>
-    /// Label that displays playback position related data for the player
+    /// Slider control that displays and can change track position
     /// </summary>
-    public sealed class playerPosDataLabel : inlayLabel
+    public sealed class seekerSlider : inlaySlider
     {
         #region Members
         /// <summary>
@@ -38,67 +38,24 @@ namespace inlayShared.ui.controls.playback
         private EventHandler<stateChangedEventArgs> _eStateChanged;
 
         /// <summary>
-        /// Is the current text track text?
+        /// Last set position
         /// </summary>
-        private bool _bCurrentIsTrackText;
+        /// <remarks>Used to prevent skipping; track moves forward, and then moves back to the previous position due to event overlap</remarks>
+        private int iLastPos;
         #endregion
 
-        #region Dependency Properties
-        #region OnTrackText
+        #region Constructors
         /// <summary>
-        /// Text to display when there is a track loaded
+        /// Initializes a new instance of the <see cref="seekerSlider"/> class.
         /// </summary>
-        public static readonly DependencyProperty onTrackTextProperty = DependencyProperty.Register("OnTrackText", typeof(string), typeof(playerPosDataLabel), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Text to display when there is a track loaded
-        /// </summary>
-        public string OnTrackText
-        {
-            get
-            {
-                return (string)GetValue(onTrackTextProperty);
-            }
-            set
-            {
-                SetValue(onTrackTextProperty, value);
-            }
-        }
-        #endregion
-
-        #region OnNullText
-        /// <summary>
-        /// Text to display when there is no track loaded
-        /// </summary>
-        public static readonly DependencyProperty onNullTextProperty = DependencyProperty.Register("OnNullText", typeof(string), typeof(playerPosDataLabel), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Text to display when there is no track loaded
-        /// </summary>
-        public string OnNullText
-        {
-            get
-            {
-                return (string)GetValue(onNullTextProperty);
-            }
-            set
-            {
-                SetValue(onNullTextProperty, value);
-            }
-        }
-        #endregion
-        #endregion
-
-        #region Constructor
-        /// <summary>
-        /// Initializes a new instance of the <see cref="playerPosDataLabel"/> class.
-        /// </summary>
-        public playerPosDataLabel()
+        public seekerSlider()
             : base()
         {
             _ePositionChanged = null;
             _eStateChanged = null;
-            _bCurrentIsTrackText = false;
+            Minimum = 0.0d;
+            Maximum = 100.0d;
+            iLastPos = 0;
         }
         #endregion
 
@@ -112,10 +69,9 @@ namespace inlayShared.ui.controls.playback
         {
             _gSystem.invokeOnLocalThread((Action)(() =>
             {
-                Content = string.Format(OnTrackText, new DateTime(e.lPosition * 10000), e.fPosition);
+                iLastPos = (int)(e.fPosition * 100);
+                Value = iLastPos;
             }));
-
-            _bCurrentIsTrackText = true;
         }
 
         /// <summary>
@@ -129,21 +85,31 @@ namespace inlayShared.ui.controls.playback
             {
                 case playerState.playing:
                 case playerState.paused:
-                case playerState.opening:
                     return;
 
                 default:
-                    if (!_bCurrentIsTrackText && _isInitializationComplete)
-                        return;
-
                     _gSystem.invokeOnLocalThread((Action)(() =>
                     {
-                        Content = OnNullText;
+                        Value = 0;
+                        iLastPos = 0;
                     }));
-
-                    _bCurrentIsTrackText = false;
                     break;
             }
+        }
+
+        /// <summary>
+        /// Called when [Value Changes].
+        /// </summary>
+        /// <param name="oSender">The origanal sender.</param>
+        /// <param name="rArgs">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        protected override void onValueChanged(object oSender, RoutedEventArgs rArgs)
+        {
+            if (iLastPos == (int)Value)
+                return;
+
+            iLastPos = (int)Value;
+            _nPlayer.fPosition = (float)(Value / 100);
+            rArgs.Handled = true;
         }
         #endregion
 

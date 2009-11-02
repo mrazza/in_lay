@@ -16,7 +16,7 @@
 using netAudio.core;
 using netGooey.controls;
 
-namespace in_lay_Shared.ui.controls.core
+namespace inlayShared.ui.controls.core
 {
     /// <summary>
     /// Abstract in_lay Grid base

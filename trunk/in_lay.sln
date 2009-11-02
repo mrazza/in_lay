@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netDiscographer", "netDisco
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netGooey", "netGooey\netGooey.csproj", "{4A928895-8CC1-4571-827B-0AF2054B9E97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "in_lay_Shared", "in_lay Shared\in_lay_Shared.csproj", "{E3F03DBB-54F1-4212-BF53-D0AF394C0581}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "in_lay Shared", "in_lay Shared\in_lay Shared.csproj", "{E3F03DBB-54F1-4212-BF53-D0AF394C0581}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

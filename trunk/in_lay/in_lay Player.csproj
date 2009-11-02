@@ -102,9 +102,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\in_lay Shared\in_lay_Shared.csproj">
+    <ProjectReference Include="..\in_lay Shared\in_lay Shared.csproj">
       <Project>{E3F03DBB-54F1-4212-BF53-D0AF394C0581}</Project>
-      <Name>in_lay_Shared</Name>
+      <Name>in_lay Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\netAudio\netAudio.csproj">
       <Project>{2FCFCF18-62A4-42D7-9A66-17DCB5F7CED2}</Project>

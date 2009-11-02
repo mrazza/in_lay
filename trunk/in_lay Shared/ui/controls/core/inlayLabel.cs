@@ -17,7 +17,7 @@ using System.Windows;
 using netAudio.core;
 using netGooey.controls;
 
-namespace in_lay_Shared.ui.controls.core
+namespace inlayShared.ui.controls.core
 {
     /// <summary>
     /// in_lay Label Control
