@@ -14,7 +14,7 @@
  *******************************************************************/
 
 using System;
-using in_lay_Shared.ui.controls.core;
+using inlayShared.ui.controls.core;
 using netAudio.core;
 using netGooey.core;
 

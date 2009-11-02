@@ -14,9 +14,9 @@
  *******************************************************************/
 
 using System.Windows;
-using in_lay_Shared.ui.controls.core;
+using inlayShared.ui.controls.core;
 
-namespace in_lay_Shared.ui.controls.playback
+namespace inlayShared.ui.controls.playback
 {
     /// <summary>
     /// Triggers playback of the netAudioObject attached

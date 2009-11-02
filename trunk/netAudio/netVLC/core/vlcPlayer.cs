@@ -119,6 +119,10 @@ namespace netAudio.netVLC.core
                 if (_vHandle.IsInvalid)
                     return -1;
 
+                // We can't get time if there is no track playing
+                if (pState != vlcPlayerState.playing && pState != vlcPlayerState.paused)
+                    return 0;
+
                 long ret = libvlc_media_player_get_time(_vHandle, ref _vCore.vException.vExStruct);
                 _vCore.handleError();
                 return ret;
@@ -146,6 +150,10 @@ namespace netAudio.netVLC.core
             {
                 if (_vHandle.IsInvalid)
                     return -1.0f;
+
+                // We can't get time if there is no track playing
+                if (pState != vlcPlayerState.playing && pState != vlcPlayerState.paused)
+                    return 0.0f;
 
                 float ret = libvlc_media_player_get_position(_vHandle, ref _vCore.vException.vExStruct);
                 _vCore.handleError();

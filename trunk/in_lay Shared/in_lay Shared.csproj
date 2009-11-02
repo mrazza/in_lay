@@ -8,8 +8,8 @@
     <ProjectGuid>{E3F03DBB-54F1-4212-BF53-D0AF394C0581}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>in_lay_Shared</RootNamespace>
-    <AssemblyName>in_lay_Shared</AssemblyName>
+    <RootNamespace>inlayShared</RootNamespace>
+    <AssemblyName>inlayShared</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <DocumentationFile>bin\x86\Debug\in_lay_Shared.xml</DocumentationFile>
+    <DocumentationFile>bin\x86\Debug\inlayShared.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -58,6 +58,7 @@
     <Compile Include="ui\controls\core\IPlayerControl.cs" />
     <Compile Include="ui\controls\playback\playerPosDataLabel.cs" />
     <Compile Include="ui\controls\playback\playPauseStopToggle.cs" />
+    <Compile Include="ui\controls\playback\seekerSlider.cs" />
     <Compile Include="ui\controls\playback\stopButton.cs" />
     <Compile Include="ui\controls\playback\trackDataLabel.cs" />
     <Compile Include="ui\controls\playback\volumeSlider.cs" />

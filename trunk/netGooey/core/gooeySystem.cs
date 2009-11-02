@@ -15,6 +15,7 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Threading;
@@ -155,6 +156,12 @@ namespace netGooey.core
         /// <param name="bBlocking">If set to true, this thread will wait till the invoke finishes</param>
         public void invokeOnLocalThread(Delegate dFunction, bool bBlocking)
         {
+            if (_dThreadDispatcher.Thread == Thread.CurrentThread)
+            {
+                ((Action)dFunction)();
+                return;
+            }
+
             if (!bBlocking)
             {
                 _dThreadDispatcher.BeginInvoke(dFunction);

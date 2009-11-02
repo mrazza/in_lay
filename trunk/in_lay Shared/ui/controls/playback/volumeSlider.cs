@@ -15,10 +15,10 @@
 
 using System;
 using System.Windows;
-using in_lay_Shared.ui.controls.core;
+using inlayShared.ui.controls.core;
 using netAudio.core.events;
 
-namespace in_lay_Shared.ui.controls.playback
+namespace inlayShared.ui.controls.playback
 {
     /// <summary>
     /// Slider that changes the volume of the player

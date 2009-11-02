@@ -16,7 +16,7 @@
 using netAudio.core;
 using netGooey.core;
 
-namespace in_lay_Shared.ui.controls.core
+namespace inlayShared.ui.controls.core
 {
     /// <summary>
     /// Interface common to all inlay controls that require access to player functionality
