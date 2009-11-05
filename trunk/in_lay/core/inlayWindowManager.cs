@@ -14,6 +14,7 @@
  *******************************************************************/
 
 using System;
+using inlayShared.core;
 using inlayShared.ui.controls.core;
 using netAudio.core;
 using netGooey.core;
@@ -27,9 +28,9 @@ namespace in_lay.core
     {
         #region Members
         /// <summary>
-        /// Player we are managing
+        /// inlayComponentSystem for the application
         /// </summary>
-        private netAudioPlayer _nPlayer;
+        private inlayComponentSystem _iSystem;
 
         /// <summary>
         /// Window (main window) we are managing
@@ -39,13 +40,13 @@ namespace in_lay.core
 
         #region Properties
         /// <summary>
-        /// netAudioPlayer used for this instance of inlay
+        /// Shared inlayComponentSystem instance
         /// </summary>
-        public netAudioPlayer nPlayer
+        public inlayComponentSystem iSystem
         {
             get
             {
-                return _nPlayer;
+                return _iSystem;
             }
         }
 
@@ -63,15 +64,15 @@ namespace in_lay.core
 
         #region Constructor
         /// <summary>
-        /// Base Constructor
+        /// Initializes a new instance of the <see cref="inlayWindowManager"/> class.
         /// </summary>
-        /// <param name="nPlayer">netAudioPlayer to use</param>
-        public inlayWindowManager(netAudioPlayer nPlayer)
+        /// <param name="iSystem">The i system.</param>
+        public inlayWindowManager(inlayComponentSystem iSystem)
         {
-            if (nPlayer == null)
-                throw new NullReferenceException("nPlayer is not set to an instance of an object.");
+            if (iSystem == null)
+                throw new NullReferenceException("iSystem is not set to an instance of an object.");
 
-            _nPlayer = nPlayer;
+            _iSystem = iSystem;
         }
         #endregion
 
@@ -79,48 +80,37 @@ namespace in_lay.core
         /// <summary>
         /// Generates and uses the window
         /// </summary>
-        /// <param name="gSystem">The netGooey system.</param>
         /// <returns>New netGooey Window</returns>
-        public void generateWindow(gooeySystem gSystem)
+        public void generateWindow()
         {
             if (_gWindow != null)
                 return;
 
-            _gWindow = gSystem.createWindow(); 
+            _gWindow = _iSystem.gSystem.createWindow(); 
         }
 
         /// <summary>
         /// Generates and uses the window.
         /// </summary>
-        /// <param name="gSystem">The netGooey system.</param>
         /// <param name="sFile">The path to the UI file.</param>
         /// <returns>New netGooey Window</returns>
-        public void generateWindow(gooeySystem gSystem, string sFile)
+        public void generateWindow(string sFile)
         {
             if (_gWindow != null)
                 return;
 
-            _gWindow = gSystem.createWindow(sFile, (gooeySystem.initializationDelegate)initUIElements);
+            _gWindow = _iSystem.gSystem.createWindow(sFile, (gooeySystem.initializationDelegate)initUIElements);
         }
         #endregion
 
         #region Private Members
-        /// <summary>
-        /// Invokes on the GUI's local thread
-        /// </summary>
-        /// <param name="dFunction">Function to invoke</param>
-        private void invokeOnLocalThread(Delegate dFunction)
-        {
-            _gWindow.gSystem.invokeOnLocalThread(dFunction);
-        }
-
         /// <summary>
         /// Inits the UI elements.
         /// </summary>
         /// <param name="uiElement">The UI element.</param>
         private void initUIElements(IGooeyControl uiElement)
         {
-            ((IPlayerControl)uiElement).nPlayer = _nPlayer;
+            ((IPlayerControl)uiElement).iSystem = _iSystem;
         }
         #endregion
     }

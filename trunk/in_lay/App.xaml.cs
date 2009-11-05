@@ -15,8 +15,11 @@
 
 using System.Windows;
 using in_lay.core;
+using inlayShared.core;
 using netAudio.netVLC;
 using netGooey.core;
+using netDiscographer.core;
+using netDiscographer.sqlite;
 
 namespace in_lay
 {
@@ -31,11 +34,12 @@ namespace in_lay
         /// </summary>
         public App()
         {
-            gooeySystem gSystem = new gooeySystem();
-            inlayWindowManager inSys = new inlayWindowManager(new netVLCPlayer());
-            inSys.nPlayer.sMediaPath = @""; //Enter path to track here C:\someFile.mp3
-            inSys.nPlayer.iVolume = 10;
-            inSys.generateWindow(gSystem, @"ui\default\main.xaml");
+            inlayComponentSystem iSystem = new inlayComponentSystem(new netVLCPlayer(), new gooeySystem(), new sqliteDatabase("music.db"));
+            inlayWindowManager inSys = new inlayWindowManager(iSystem);
+            iSystem.nPlayer.sMediaPath = @""; //Enter path to track here C:\someFile.mp3
+            iSystem.nPlayer.iVolume = 10;
+            inSys.generateWindow(@"ui\default\main.xaml");
+            inSys.gWindow.Title = "in_lay Player Development Build";
             inSys.gWindow.Show();
         }
         #endregion

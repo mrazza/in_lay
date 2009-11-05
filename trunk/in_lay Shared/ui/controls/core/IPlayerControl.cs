@@ -13,7 +13,7 @@
  * This software is distributed under the Microsoft Public License (Ms-PL).
  *******************************************************************/
 
-using netAudio.core;
+using inlayShared.core;
 using netGooey.core;
 
 namespace inlayShared.ui.controls.core
@@ -25,12 +25,12 @@ namespace inlayShared.ui.controls.core
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the netAudioPlayer.
+        /// Gets or sets the inlayComponentSystem.
         /// </summary>
         /// <remarks>This value should either throw an exception if changed after it was initially set
         /// or should handle the change explicitly (within the set function).</remarks>
-        /// <value>The netAudioPlayer.</value>
-        netAudioPlayer nPlayer
+        /// <value>The inlayComponentSystem.</value>
+        inlayComponentSystem iSystem
         {
             get;
             set;
