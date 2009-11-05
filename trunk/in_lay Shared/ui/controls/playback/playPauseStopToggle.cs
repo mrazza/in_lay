@@ -129,7 +129,7 @@ namespace inlayShared.ui.controls.playback
 
         #region Events
         /// <summary>
-        /// Handles the eStateChanged event of the _nPlayer control.
+        /// Handles the eStateChanged event of the _iSystem.nPlayer control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="netAudio.core.events.stateChangedEventArgs"/> instance containing the event data.</param>
@@ -174,7 +174,7 @@ namespace inlayShared.ui.controls.playback
         /// <remarks>When overriding this function, you must call base.completeInitialization AFTER any new code.</remarks>
         protected override void completeInitialization()
         {
-            _nPlayer.eStateChanged += (_ePlayerStateChanged = new EventHandler<stateChangedEventArgs>(_nPlayer_eStateChanged));
+            _iSystem.nPlayer.eStateChanged += (_ePlayerStateChanged = new EventHandler<stateChangedEventArgs>(_nPlayer_eStateChanged));
             _nPlayer_eStateChanged(null, new stateChangedEventArgs(playerState.ready)); //Make sure things display correctly on load
             base.completeInitialization();
         }
@@ -187,8 +187,8 @@ namespace inlayShared.ui.controls.playback
         /// <remarks>base.Dispose must be called when overriding.</remarks>
         public override void Dispose()
         {
-            if (_ePlayerStateChanged != null && _nPlayer != null)
-                _nPlayer.eStateChanged -= _ePlayerStateChanged;
+            if (_ePlayerStateChanged != null && _iSystem.nPlayer != null)
+                _iSystem.nPlayer.eStateChanged -= _ePlayerStateChanged;
 
             base.Dispose();
         }

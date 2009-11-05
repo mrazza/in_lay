@@ -16,6 +16,7 @@
 using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Markup;
 
 namespace netGooey.core
@@ -107,7 +108,20 @@ namespace netGooey.core
             if (Content == null)
                 return false;
 
-            initializeObjects(Content as DependencyObject, dInit);
+            // Init the window
+            Grid gBase = Content as Grid;
+
+            if (gBase == null)
+            {
+                Content = null;
+                return false;
+            }
+
+            Width = gBase.Width;
+            Height = gBase.Height;
+
+            // Init all the objects
+            initializeObjects(Content as DependencyObject, dInit); 
 
             return true;
         }

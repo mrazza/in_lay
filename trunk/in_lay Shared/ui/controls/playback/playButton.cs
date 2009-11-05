@@ -31,7 +31,7 @@ namespace inlayShared.ui.controls.playback
         /// <param name="rArgs">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
         protected override void onClick(object oSender, RoutedEventArgs rArgs)
         {
-            _nPlayer.playMedia();
+            _iSystem.nPlayer.playMedia();
             rArgs.Handled = true;
         }
         #endregion

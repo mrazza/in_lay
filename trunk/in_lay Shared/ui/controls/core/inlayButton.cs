@@ -13,9 +13,10 @@
  * This software is distributed under the Microsoft Public License (Ms-PL).
  *******************************************************************/
 
+using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
-using netAudio.core;
+using inlayShared.core;
 using netGooey.controls;
 
 namespace inlayShared.ui.controls.core
@@ -27,9 +28,9 @@ namespace inlayShared.ui.controls.core
     {
         #region Members
         /// <summary>
-        /// netAudioPlayer the control manages
+        /// Shared inlayComponentSystem
         /// </summary>
-        protected netAudioPlayer _nPlayer;
+        protected inlayComponentSystem _iSystem;
 
         /// <summary>
         /// OnClick event handler
@@ -40,18 +41,23 @@ namespace inlayShared.ui.controls.core
         #region Properties
         #region IPlayerControl Members
         /// <summary>
-        /// Gets or sets the netAudioPlayer.
+        /// Gets or sets the inlayComponentSystem.
         /// </summary>
-        /// <value>The netAudioPlayer.</value>
-        public virtual netAudioPlayer nPlayer
+        /// <value>The inlayComponentSystem.</value>
+        /// <remarks>This value should either throw an exception if changed after it was initially set
+        /// or should handle the change explicitly (within the set function).</remarks>
+        public virtual inlayComponentSystem iSystem
         {
             get
             {
-                return _nPlayer;
+                return _iSystem;
             }
             set
             {
-                _nPlayer = value;
+                if (_iSystem != null)
+                    throw new InvalidOperationException("Can not change the value of iSystem once it has been set.");
+
+                _iSystem = value;
             }
         }
         #endregion
@@ -67,7 +73,7 @@ namespace inlayShared.ui.controls.core
         {
             get
             {
-                return base.isGooeyInitialized && (_nPlayer != null);
+                return base.isGooeyInitialized && (_iSystem != null);
             }
         }
         #endregion
@@ -80,7 +86,7 @@ namespace inlayShared.ui.controls.core
             : base()
         {
             _eOnClick = null;
-            _nPlayer = null;
+            _iSystem = null;
         }
         #endregion
 

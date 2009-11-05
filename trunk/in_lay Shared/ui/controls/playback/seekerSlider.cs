@@ -61,7 +61,7 @@ namespace inlayShared.ui.controls.playback
 
         #region Events
         /// <summary>
-        /// Handles the ePositionChanged event of the _nPlayer control.
+        /// Handles the ePositionChanged event of the _iSystem.nPlayer control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="netAudio.core.events.positionChangedEventArgs"/> instance containing the event data.</param>
@@ -75,7 +75,7 @@ namespace inlayShared.ui.controls.playback
         }
 
         /// <summary>
-        /// Handles the eStateChanged event of the _nPlayer control.
+        /// Handles the eStateChanged event of the _iSystem.nPlayer control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="netAudio.core.events.stateChangedEventArgs"/> instance containing the event data.</param>
@@ -108,7 +108,7 @@ namespace inlayShared.ui.controls.playback
                 return;
 
             iLastPos = (int)Value;
-            _nPlayer.fPosition = (float)(Value / 100);
+            _iSystem.nPlayer.fPosition = (float)(Value / 100);
             rArgs.Handled = true;
         }
         #endregion
@@ -120,10 +120,10 @@ namespace inlayShared.ui.controls.playback
         /// <remarks>When overriding this function, you must call base.completeInitialization AFTER any new code.</remarks>
         protected override void completeInitialization()
         {
-            _nPlayer.ePositionChanged += (_ePositionChanged = new EventHandler<positionChangedEventArgs>(_nPlayer_ePositionChanged));
-            _nPlayer.eStateChanged += (_eStateChanged = new EventHandler<stateChangedEventArgs>(_nPlayer_eStateChanged));
-            _nPlayer_ePositionChanged(null, new positionChangedEventArgs(_nPlayer.lPosition, _nPlayer.fPosition));
-            _nPlayer_eStateChanged(null, new stateChangedEventArgs(_nPlayer.pState));
+            _iSystem.nPlayer.ePositionChanged += (_ePositionChanged = new EventHandler<positionChangedEventArgs>(_nPlayer_ePositionChanged));
+            _iSystem.nPlayer.eStateChanged += (_eStateChanged = new EventHandler<stateChangedEventArgs>(_nPlayer_eStateChanged));
+            _nPlayer_ePositionChanged(null, new positionChangedEventArgs(_iSystem.nPlayer.lPosition, _iSystem.nPlayer.fPosition));
+            _nPlayer_eStateChanged(null, new stateChangedEventArgs(_iSystem.nPlayer.pState));
             base.completeInitialization();
         }
         #endregion
@@ -135,11 +135,11 @@ namespace inlayShared.ui.controls.playback
         /// <remarks>base.Dispose must be called when overriding.</remarks>
         public override void Dispose()
         {
-            if (_ePositionChanged != null && _nPlayer != null)
-                _nPlayer.ePositionChanged -= _ePositionChanged;
+            if (_ePositionChanged != null && _iSystem.nPlayer != null)
+                _iSystem.nPlayer.ePositionChanged -= _ePositionChanged;
 
-            if (_eStateChanged != null && _nPlayer != null)
-                _nPlayer.eStateChanged -= _eStateChanged;
+            if (_eStateChanged != null && _iSystem.nPlayer != null)
+                _iSystem.nPlayer.eStateChanged -= _eStateChanged;
 
             base.Dispose();
         }

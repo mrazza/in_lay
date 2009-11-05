@@ -51,12 +51,12 @@ namespace inlayShared.ui.controls.playback
         /// <param name="rArgs">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
         protected override void onValueChanged(object oSender, RoutedEventArgs rArgs)
         {
-            _nPlayer.iVolume = (int)Value;
+            _iSystem.nPlayer.iVolume = (int)Value;
             rArgs.Handled = true;
         }
 
         /// <summary>
-        /// Handles the eVolumeChanged event of the _nPlayer control.
+        /// Handles the eVolumeChanged event of the _iSystem.nPlayer control.
         /// </summary>
         /// <remarks>Must be blocking, otherwise event trigger loop</remarks>
         /// <param name="sender">The source of the event.</param>
@@ -80,8 +80,8 @@ namespace inlayShared.ui.controls.playback
         /// <remarks>When overriding this function, you must call base.completeInitialization AFTER any new code.</remarks>
         protected override void completeInitialization()
         {
-            _nPlayer.eVolumeChanged += (_ePlayerVolumeChanged = new EventHandler<volumeChangedEventArgs>(_nPlayer_eVolumeChanged));
-            _nPlayer_eVolumeChanged(null, new volumeChangedEventArgs(_nPlayer.iVolume, _nPlayer.bMute)); //Make sure things display correctly on load
+            _iSystem.nPlayer.eVolumeChanged += (_ePlayerVolumeChanged = new EventHandler<volumeChangedEventArgs>(_nPlayer_eVolumeChanged));
+            _nPlayer_eVolumeChanged(null, new volumeChangedEventArgs(_iSystem.nPlayer.iVolume, _iSystem.nPlayer.bMute)); //Make sure things display correctly on load
             base.completeInitialization();
         }
         #endregion
@@ -93,8 +93,8 @@ namespace inlayShared.ui.controls.playback
         /// <remarks>base.Dispose must be called when overriding.</remarks>
         public override void Dispose()
         {
-            if (_ePlayerVolumeChanged != null && _nPlayer != null)
-                _nPlayer.eVolumeChanged -= _ePlayerVolumeChanged;
+            if (_ePlayerVolumeChanged != null && _iSystem.nPlayer != null)
+                _iSystem.nPlayer.eVolumeChanged -= _ePlayerVolumeChanged;
 
             base.Dispose();
         }
