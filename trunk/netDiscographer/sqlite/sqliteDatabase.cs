@@ -190,14 +190,14 @@ namespace netDiscographer.sqlite
         /// </summary>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Search term type; if null we'll search ALL datatypes</param>
-        /// <param name="stSearchType">Search method</param>
+        /// <param name="sSearchMethod">Search method</param>
         /// <returns>Entries returned</returns>
-        protected override HashSet<int> searchMedia_implemented(string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType)
+        protected override HashSet<int> searchMedia_implemented(string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod)
         {
             HashSet<int> iRet;
             using (SQLiteTransaction tSQLTrans = _cSQLConnection.BeginTransaction())
             {
-                iRet = searchDatabase(sData, mDataType, stSearchType);
+                iRet = searchDatabase(sData, mDataType, sSearchMethod);
                 tSQLTrans.Commit();
             }
 
@@ -210,9 +210,9 @@ namespace netDiscographer.sqlite
         /// <param name="dQuery">Query to execute</param>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Search term type; if none/all we'll search ALL datatypes</param>
-        /// <param name="stSearchType">Search method</param>
+        /// <param name="sSearchMethod">Search method</param>
         /// <returns>Entries returned</returns>
-        protected override HashSet<int> searchDynamicQuery_implemented(dynamicQuery dQuery, string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType)
+        protected override HashSet<int> searchDynamicQuery_implemented(dynamicQuery dQuery, string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod)
         {
             HashSet<int> iRet;
             using (SQLiteTransaction tSQLTrans = _cSQLConnection.BeginTransaction())
@@ -220,7 +220,7 @@ namespace netDiscographer.sqlite
                 iRet = executeDynamicQuery(dQuery);
 
                 if (sData.Length > 0)
-                    iRet.IntersectWith(searchDatabase(sData, mDataType, stSearchType));
+                    iRet.IntersectWith(searchDatabase(sData, mDataType, sSearchMethod));
 
                 tSQLTrans.Commit();
             }
@@ -660,14 +660,14 @@ namespace netDiscographer.sqlite
         /// <param name="iPlaylistID">Playlist ID to seach</param>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Term type (meta data type)</param>
-        /// <param name="stSearchType">Method to search with</param>
+        /// <param name="sSearchMethod">Method to search with</param>
         /// <returns>Array of mediaEntries that match the search terms</returns>
-        protected override HashSet<int> searchStandardPlaylistMedia_implemented(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType)
+        protected override HashSet<int> searchStandardPlaylistMedia_implemented(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod)
         {
             HashSet<int> iRet;
             using (SQLiteTransaction tSQLTrans = _cSQLConnection.BeginTransaction())
             {
-                iRet = searchStandardPlaylist(iPlaylistID, sData, mDataType, stSearchType);
+                iRet = searchStandardPlaylist(iPlaylistID, sData, mDataType, sSearchMethod);
                 tSQLTrans.Commit();
             }
 
@@ -1116,14 +1116,14 @@ namespace netDiscographer.sqlite
         /// <param name="iPlaylistID">Playlist ID to seach</param>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Term type (meta data type)</param>
-        /// <param name="stSearchType">Method to search with</param>
+        /// <param name="sSearchMethod">Method to search with</param>
         /// <returns>Array of mediaEntries that match the search terms</returns>
-        protected override HashSet<int> searchDynamicPlaylistMedia_implemented(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType)
+        protected override HashSet<int> searchDynamicPlaylistMedia_implemented(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod)
         {
             HashSet<int> iRet;
             using (SQLiteTransaction tSQLTrans = _cSQLConnection.BeginTransaction())
             {
-                iRet = searchDynamicPlaylist(iPlaylistID, sData, mDataType, stSearchType);
+                iRet = searchDynamicPlaylist(iPlaylistID, sData, mDataType, sSearchMethod);
                 tSQLTrans.Commit();
             }
 
@@ -1159,7 +1159,7 @@ namespace netDiscographer.sqlite
         /// </summary>
         protected override void initFill()
         {
-            mediaEntry[] mAll = getTrackData(searchDatabase(new string[0], new metaDataFieldTypes[0], searchType.none));
+            mediaEntry[] mAll = getTrackData(searchDatabase(new string[0], new metaDataFieldTypes[0], searchMethod.none));
 
             foreach (mediaEntry mCurr in mAll)
                 _mLibrary.Add(mCurr.iEntryID, mCurr);
@@ -1186,9 +1186,9 @@ namespace netDiscographer.sqlite
         /// </summary>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Search term type; if none/all we'll search ALL datatypes</param>
-        /// <param name="stSearchType">Search method</param>
+        /// <param name="sSearchMethod">Search method</param>
         /// <returns>Track ID's that fit the search terms</returns>
-        private HashSet<int> searchDatabase(string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType)
+        private HashSet<int> searchDatabase(string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod)
         {
             if (sData.Length != mDataType.Length)
                 throw new ArgumentException("Argument array lengths differ with matchSearchField.");
@@ -1203,7 +1203,7 @@ namespace netDiscographer.sqlite
 
                 // Let's make sure we search correctly
                 string sSearchFieldAppend;
-                if ((stSearchType & searchType.matchAllFields) != 0)
+                if ((sSearchMethod & searchMethod.matchAllFields) != 0)
                     sSearchFieldAppend = "AND";
                 else
                     sSearchFieldAppend = "OR";
@@ -1258,7 +1258,7 @@ namespace netDiscographer.sqlite
 
                         if (iMediaIDs == null)
                             iMediaIDs = iTempIDs;
-                        else if ((stSearchType & searchType.matchAllParams) != 0)
+                        else if ((sSearchMethod & searchMethod.matchAllParams) != 0)
                             iMediaIDs.IntersectWith(iTempIDs);
                         else
                             iMediaIDs.UnionWith(iTempIDs);
@@ -1290,9 +1290,9 @@ namespace netDiscographer.sqlite
         /// <param name="iPlaylistID">Playlist ID</param>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Search term type; if none/all we'll search ALL datatypes</param>
-        /// <param name="stSearchType">Search method</param>
+        /// <param name="sSearchMethod">Search method</param>
         /// <returns>Track ID's that fit the search terms</returns>
-        private HashSet<int> searchStandardPlaylist(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType)
+        private HashSet<int> searchStandardPlaylist(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod)
         {
             if (sData.Length != mDataType.Length)
                 throw new ArgumentException("Argument array lengths differ with matchSearchField.");
@@ -1305,7 +1305,7 @@ namespace netDiscographer.sqlite
             {
                 // Let's make sure we search correctly
                 string sSearchFieldAppend;
-                if ((stSearchType & searchType.matchAllFields) != 0)
+                if ((sSearchMethod & searchMethod.matchAllFields) != 0)
                     sSearchFieldAppend = "AND";
                 else
                     sSearchFieldAppend = "OR";
@@ -1361,7 +1361,7 @@ namespace netDiscographer.sqlite
 
                         if (iMediaIDs == null)
                             iMediaIDs = iTempIDs;
-                        else if ((stSearchType & searchType.matchAllParams) != 0)
+                        else if ((sSearchMethod & searchMethod.matchAllParams) != 0)
                             iMediaIDs.IntersectWith(iTempIDs);
                         else
                             iMediaIDs.UnionWith(iTempIDs);
@@ -1394,14 +1394,14 @@ namespace netDiscographer.sqlite
         /// <param name="iPlaylistID">Playlist ID</param>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Search term type; if none/all we'll search ALL datatypes</param>
-        /// <param name="stSearchType">Search method</param>
+        /// <param name="sSearchMethod">Search method</param>
         /// <returns>Track ID's that fit the search terms</returns>
-        private HashSet<int> searchDynamicPlaylist(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType)
+        private HashSet<int> searchDynamicPlaylist(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod)
         {
             // Let's get the dynamic query
             dynamicQuery dDynamicQuery = getDynamicPlaylistQuery(iPlaylistID);
             HashSet<int> iMediaIDs = executeDynamicQuery(dDynamicQuery.sSearchQuery);
-            iMediaIDs.IntersectWith(searchDatabase(sData, mDataType, stSearchType));
+            iMediaIDs.IntersectWith(searchDatabase(sData, mDataType, sSearchMethod));
             return iMediaIDs;
         }
 

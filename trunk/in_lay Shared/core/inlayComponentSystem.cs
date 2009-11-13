@@ -43,9 +43,9 @@ namespace inlayShared.core
         private discographerDatabase _dDatabase;
 
         /// <summary>
-        /// Event Triggered when a database search has been completed
+        /// netDiscographer Database System
         /// </summary>
-        private event EventHandler<databaseSearchCompleteEventArgs> _eDatabaseSearchComplete;
+        private discographerSystem _dSystem;
         #endregion
 
         #region Properties
@@ -68,32 +68,6 @@ namespace inlayShared.core
             get
             {
                 return _gSystem;
-            }
-        }
-
-        /// <summary>
-        /// Main netDiscographer Database
-        /// </summary>
-        public discographerDatabase dDatabase
-        {
-            get
-            {
-                return _dDatabase;
-            }
-        }
-
-        /// <summary>
-        /// Event Triggered when a database search has been completed
-        /// </summary>
-        public event EventHandler<databaseSearchCompleteEventArgs> eDatabaseSearchComplete
-        {
-            add
-            {
-                _eDatabaseSearchComplete += value;
-            }
-            remove
-            {
-                _eDatabaseSearchComplete -= value;
             }
         }
         #endregion
@@ -119,22 +93,6 @@ namespace inlayShared.core
             _nPlayer = nPlayer;
             _gSystem = gSystem;
             _dDatabase = dDatabase;
-        }
-        #endregion
-
-        #region Public Members
-        /// <summary>
-        /// Searches the music database.
-        /// </summary>
-        /// <param name="sTerms">The search terms.</param>
-        public void searchMusicDatabase(string sTerms)
-        {
-            ThreadStart tStart = new ThreadStart(() =>
-            {
-                _eDatabaseSearchComplete.Invoke(this, new databaseSearchCompleteEventArgs(_dDatabase.searchMedia(sTerms.Split(' '), new metaDataFieldTypes[] { metaDataFieldTypes.all }, searchType.matchAll)));
-            });
-            Thread tNewThread = new Thread(tStart);
-            tNewThread.Start();
         }
         #endregion
     }
