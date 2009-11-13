@@ -18,55 +18,28 @@ using System;
 namespace netDiscographer.core
 {
     /// <summary>
-    /// Valid Search Types
+    /// Valid search types
     /// </summary>
-    [Flags]
     public enum searchType : ushort
     {
         /// <summary>
-        /// Nothing selected
+        /// No search type set
         /// </summary>
-        none = 0x0,
+        none = 0,
 
         /// <summary>
-        /// Normal Search (Generally Expected Search Type)
-        /// Matches any field with all params (All params must exist in any of the given fields)
+        /// Direct library search
         /// </summary>
-        normal = 0x6,
+        library = 1,
 
         /// <summary>
-        /// Matches any params (default behavior)
+        /// Standard playlist search
         /// </summary>
-        matchAnyParam = 0x1,
-
+        playlist = 2,
+        
         /// <summary>
-        /// Matches ALL params
+        /// Dynamic playlist search
         /// </summary>
-        matchAllParams = 0x2,
-
-        /// <summary>
-        /// Matches any fields (default behavior)
-        /// </summary>
-        matchAnyField = 0x4,
-
-        /// <summary>
-        /// Matches ALL fields
-        /// </summary>
-        matchAllFields = 0x8,
-
-        /// <summary>
-        /// Matches any fields and any params
-        /// </summary>
-        matchAny = 0x5,
-
-        /// <summary>
-        /// Matches all fields and all params
-        /// </summary>
-        matchAll = 0xA,
-
-        /// <summary>
-        /// Last Search Type
-        /// </summary>
-        last = 0xA
+        dynamic = 3
     }
 }

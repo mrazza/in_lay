@@ -49,14 +49,18 @@
     <Compile Include="core\dynamicQueryCore\searchGroup.cs" />
     <Compile Include="core\dynamicQuery.cs" />
     <Compile Include="core\dynamicQueryCore\logicOperators.cs" />
+    <Compile Include="core\events\onSearchCompleteEventArgs.cs" />
     <Compile Include="core\mediaEntry.cs" />
     <Compile Include="core\mediaEntryComparer.cs" />
     <Compile Include="core\mediaSearch\mediaSearchProgressEventArgs.cs" />
     <Compile Include="core\mediaSearch\mediaSearchStage.cs" />
     <Compile Include="core\mediaSearch\mediaSearchSystem.cs" />
     <Compile Include="core\metaDataFieldTypes.cs" />
+    <Compile Include="core\searchRequest.cs" />
+    <Compile Include="core\searchMethod.cs" />
     <Compile Include="core\searchType.cs" />
     <Compile Include="core\sortOrder.cs" />
+    <Compile Include="core\discographerSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sqlite\sqliteDatabase.cs" />
   </ItemGroup>

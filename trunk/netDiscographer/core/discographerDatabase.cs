@@ -103,7 +103,7 @@ namespace netDiscographer.core
         /// <returns>Full library</returns>
         public mediaEntry[] searchMedia()
         {
-            return searchMedia(new string[0], new metaDataFieldTypes[0], searchType.none);
+            return searchMedia(new string[0], new metaDataFieldTypes[0], searchMethod.none);
         }
 
         /// <summary>
@@ -111,9 +111,9 @@ namespace netDiscographer.core
         /// </summary>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Search term type; if none/all we'll search ALL datatypes</param>
-        /// <param name="stSearchType">Search method</param>
+        /// <param name="sSearchMethod">Search method</param>
         /// <returns>Entries returned</returns>
-        public mediaEntry[] searchMedia(string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType)
+        public mediaEntry[] searchMedia(string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod)
         {
             if (sData.Length == 0 && mDataType.Length == 0)
             {
@@ -122,7 +122,7 @@ namespace netDiscographer.core
                 return mRet;
             }
 
-            return getMediaData(searchMedia_implemented(sData, mDataType, stSearchType));
+            return getMediaData(searchMedia_implemented(sData, mDataType, sSearchMethod));
         }
 
         /// <summary>
@@ -131,9 +131,9 @@ namespace netDiscographer.core
         /// </summary>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Search term type; if none/all we'll search ALL datatypes</param>
-        /// <param name="stSearchType">Search method</param>
+        /// <param name="sSearchMethod">Search method</param>
         /// <returns>Entries returned</returns>
-        protected abstract HashSet<int> searchMedia_implemented(string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType);
+        protected abstract HashSet<int> searchMedia_implemented(string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod);
 
         /// <summary>
         /// Executes a dynamic query
@@ -142,7 +142,7 @@ namespace netDiscographer.core
         /// <returns>Media Entries that match the query</returns>
         public mediaEntry[] searchDynamicQuery(dynamicQuery dQuery)
         {
-            return searchDynamicQuery(dQuery, new string[0], new metaDataFieldTypes[0], searchType.none);
+            return searchDynamicQuery(dQuery, new string[0], new metaDataFieldTypes[0], searchMethod.none);
         }
 
         /// <summary>
@@ -151,11 +151,11 @@ namespace netDiscographer.core
         /// <param name="dQuery">Query to execute</param>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Search term type; if none/all we'll search ALL datatypes</param>
-        /// <param name="stSearchType">Search method</param>
+        /// <param name="sSearchMethod">Search method</param>
         /// <returns>Entries returned</returns>
-        public mediaEntry[] searchDynamicQuery(dynamicQuery dQuery, string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType)
+        public mediaEntry[] searchDynamicQuery(dynamicQuery dQuery, string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod)
         {
-            return getMediaData(searchDynamicQuery_implemented(dQuery, sData, mDataType, stSearchType));
+            return getMediaData(searchDynamicQuery_implemented(dQuery, sData, mDataType, sSearchMethod));
         }
 
         /// <summary>
@@ -165,9 +165,9 @@ namespace netDiscographer.core
         /// <param name="dQuery">Query to execute</param>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Search term type; if none/all we'll search ALL datatypes</param>
-        /// <param name="stSearchType">Search method</param>
+        /// <param name="sSearchMethod">Search method</param>
         /// <returns>Entries returned</returns>
-        protected abstract HashSet<int> searchDynamicQuery_implemented(dynamicQuery dQuery, string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType);
+        protected abstract HashSet<int> searchDynamicQuery_implemented(dynamicQuery dQuery, string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod);
         #endregion
 
         #region Delete Commands
@@ -409,7 +409,7 @@ namespace netDiscographer.core
         /// <returns>Array of mediaEntries for each track in the playlist</returns>
         public mediaEntry[] searchStandardPlaylistMedia(int iPlaylistID)
         {
-            return searchStandardPlaylistMedia(iPlaylistID, new string[0], new metaDataFieldTypes[0], searchType.none);
+            return searchStandardPlaylistMedia(iPlaylistID, new string[0], new metaDataFieldTypes[0], searchMethod.none);
         }
 
         /// <summary>
@@ -418,11 +418,11 @@ namespace netDiscographer.core
         /// <param name="iPlaylistID">Playlist ID to seach</param>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Term type (meta data type); if none/all we search all types</param>
-        /// <param name="stSearchType">Method to search with</param>
+        /// <param name="sSearchMethod">Method to search with</param>
         /// <returns>Array of mediaEntries that match the search terms</returns>
-        public mediaEntry[] searchStandardPlaylistMedia(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType)
+        public mediaEntry[] searchStandardPlaylistMedia(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod)
         {
-            return getMediaData(searchStandardPlaylistMedia_implemented(iPlaylistID, sData, mDataType, stSearchType));
+            return getMediaData(searchStandardPlaylistMedia_implemented(iPlaylistID, sData, mDataType, sSearchMethod));
         }
 
 
@@ -433,9 +433,9 @@ namespace netDiscographer.core
         /// <param name="iPlaylistID">Playlist ID to seach</param>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Term type (meta data type); if none/all we search all types</param>
-        /// <param name="stSearchType">Method to search with</param>
+        /// <param name="sSearchMethod">Method to search with</param>
         /// <returns>Array of media IDs that match the search terms</returns>
-        protected abstract HashSet<int> searchStandardPlaylistMedia_implemented(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType);
+        protected abstract HashSet<int> searchStandardPlaylistMedia_implemented(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod);
         #endregion
 
         #region Delete Commands
@@ -640,7 +640,7 @@ namespace netDiscographer.core
         /// <returns>Array of mediaEntries for each track in the playlist</returns>
         public mediaEntry[] searchDynamicPlaylistMedia(int iPlaylistID)
         {
-            return searchDynamicPlaylistMedia(iPlaylistID, new string[0], new metaDataFieldTypes[0], searchType.none);
+            return searchDynamicPlaylistMedia(iPlaylistID, new string[0], new metaDataFieldTypes[0], searchMethod.none);
         }
 
         /// <summary>
@@ -649,11 +649,11 @@ namespace netDiscographer.core
         /// <param name="iPlaylistID">Playlist ID to seach</param>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Term type (meta data type); if none/all we search all types</param>
-        /// <param name="stSearchType">Method to search with</param>
+        /// <param name="sSearchMethod">Method to search with</param>
         /// <returns>Array of mediaEntries that match the search terms</returns>
-        public mediaEntry[] searchDynamicPlaylistMedia(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType)
+        public mediaEntry[] searchDynamicPlaylistMedia(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod)
         {
-            return getMediaData(searchDynamicPlaylistMedia_implemented(iPlaylistID, sData, mDataType, stSearchType));
+            return getMediaData(searchDynamicPlaylistMedia_implemented(iPlaylistID, sData, mDataType, sSearchMethod));
         }
 
         /// <summary>
@@ -663,9 +663,9 @@ namespace netDiscographer.core
         /// <param name="iPlaylistID">Playlist ID to seach</param>
         /// <param name="sData">Search terms</param>
         /// <param name="mDataType">Term type (meta data type); if none/all we search all types</param>
-        /// <param name="stSearchType">Method to search with</param>
+        /// <param name="sSearchMethod">Method to search with</param>
         /// <returns>Array of mediaEntries that match the search terms</returns>
-        protected abstract HashSet<int> searchDynamicPlaylistMedia_implemented(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchType stSearchType);
+        protected abstract HashSet<int> searchDynamicPlaylistMedia_implemented(int iPlaylistID, string[] sData, metaDataFieldTypes[] mDataType, searchMethod sSearchMethod);
         #endregion
 
         #region Delete Commands
@@ -676,6 +676,39 @@ namespace netDiscographer.core
         public abstract void removeDynamicPlaylist(int iPlaylistID);
         #endregion
         #endregion
+        #endregion
+
+        #region Global Commands
+        /// <summary>
+        /// Searches the database via a searchRequest
+        /// </summary>
+        /// <param name="sRequest">What to search</param>
+        /// <returns>Resulting entries</returns>
+        public mediaEntry[] searchDatabase(searchRequest sRequest)
+        {
+            switch (sRequest.sType)
+            {
+                case searchType.library:
+                    if (sRequest.sSearchData.Length == 0)
+                        return searchMedia();
+
+                    return searchMedia(sRequest.sSearchData, sRequest.mFieldTypes, sRequest.sSearchMethod);
+                
+                case searchType.playlist:
+                    if (sRequest.sSearchData.Length == 0)
+                        return searchStandardPlaylistMedia(sRequest.iPlaylistID);
+
+                    return searchStandardPlaylistMedia(sRequest.iPlaylistID, sRequest.sSearchData, sRequest.mFieldTypes, sRequest.sSearchMethod);
+
+                case searchType.dynamic:
+                    if (sRequest.sSearchData.Length == 0)
+                        return searchDynamicPlaylistMedia(sRequest.iPlaylistID);
+
+                    return searchDynamicPlaylistMedia(sRequest.iPlaylistID, sRequest.sSearchData, sRequest.mFieldTypes, sRequest.sSearchMethod); 
+            }
+
+            throw new ArgumentException("searchType for database query is not valid.");
+        }
         #endregion
 
         /// <summary>

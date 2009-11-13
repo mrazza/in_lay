@@ -306,16 +306,16 @@ namespace testing
             }
             else
             {
-                metaDataFieldTypes[] temp = new metaDataFieldTypes[txtSearch.Text.Split(' ').Length];
+                /*metaDataFieldTypes[] temp = new metaDataFieldTypes[txtSearch.Text.Split(' ').Length];
                 for (int iLoop = 0; iLoop < temp.Length; iLoop++)
-                    temp[iLoop] = metaDataFieldTypes.all;
+                    temp[iLoop] = metaDataFieldTypes.all;*/
 
                 if (rdLib.Checked)
-                    entries = db.searchMedia(txtSearch.Text.Split(' '), temp, searchType.normal);
+                    entries = db.searchDatabase(new searchRequest(txtSearch.Text.Split(' ')));//db.searchMedia(txtSearch.Text.Split(' '), temp, searchMethod.normal);
                 else if (rdPlay.Checked && stdPlay.SelectedIndices.Count > 0)
-                    entries = db.searchStandardPlaylistMedia(stdPlaylistIDs[stdPlay.SelectedIndices[0]], txtSearch.Text.Split(' '), temp, searchType.normal);
+                    entries = db.searchDatabase(new searchRequest(stdPlaylistIDs[stdPlay.SelectedIndices[0]], txtSearch.Text.Split(' ')));//db.searchStandardPlaylistMedia(stdPlaylistIDs[stdPlay.SelectedIndices[0]], txtSearch.Text.Split(' '), temp, searchMethod.normal);
                 else if (rdDyPlay.Checked && dynPlay.SelectedIndices.Count > 0)
-                    entries = db.searchDynamicPlaylistMedia(dynPlaylistIDs[dynPlay.SelectedIndices[0]], txtSearch.Text.Split(' '), temp, searchType.normal);
+                    entries = db.searchDatabase(new searchRequest(dynPlaylistIDs[dynPlay.SelectedIndices[0]], txtSearch.Text.Split(' ')) { sType = searchType.dynamic }); //db.searchDynamicPlaylistMedia(dynPlaylistIDs[dynPlay.SelectedIndices[0]], txtSearch.Text.Split(' '), temp, searchMethod.normal);
             }
 
             if (rdLib.Checked || rdDyPlay.Checked)
