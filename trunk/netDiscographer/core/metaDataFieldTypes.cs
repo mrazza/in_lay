@@ -89,9 +89,9 @@ namespace netDiscographer.core
         genre = 0x800,
 
         /// <summary>
-        /// Raiting Search Field
+        /// Rating Search Field
         /// </summary>
-        raiting = 0x1000,
+        rating = 0x1000,
 
         /// <summary>
         /// Playcount

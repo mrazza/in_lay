@@ -48,6 +48,11 @@ namespace netDiscographer.core
         /// Meta Data Array
         /// </summary>
         private string[] _sData;
+
+        /// <summary>
+        /// Friendly names for all metaDataFieldTypes
+        /// </summary>
+        private static readonly string[] _sFriendlyNames = { "Artist", "Title", "Album", "Album Artist", "Composer", "Year", "Comment", "Track #", "Total Tracks", "Disk #", "Total Disks", "Genre", "Rating", "Play Count", "Last Played" };
         #endregion
 
         #region Properties
@@ -114,7 +119,7 @@ namespace netDiscographer.core
                 mNewData[iLoop][metaDataFieldTypes.disk] = mOldData[iLoop].iDisk.ToString();
                 mNewData[iLoop][metaDataFieldTypes.genre] = mOldData[iLoop].sGenre;
                 mNewData[iLoop][metaDataFieldTypes.play_count] = (0).ToString();
-                mNewData[iLoop][metaDataFieldTypes.raiting] = mOldData[iLoop].iRating.ToString();
+                mNewData[iLoop][metaDataFieldTypes.rating] = mOldData[iLoop].iRating.ToString();
                 mNewData[iLoop][metaDataFieldTypes.time_last_played] = (-1).ToString();
                 mNewData[iLoop][metaDataFieldTypes.title] = mOldData[iLoop].sTitle;
                 mNewData[iLoop][metaDataFieldTypes.total_disks] = mOldData[iLoop].iTotalDisks.ToString();
@@ -156,7 +161,7 @@ namespace netDiscographer.core
                 mNewData[iLoop].sComposer = mOldData[iLoop][metaDataFieldTypes.composer];
                 mNewData[iLoop].iDisk = uint.Parse(mOldData[iLoop][metaDataFieldTypes.disk]);
                 mNewData[iLoop].sGenre = mOldData[iLoop][metaDataFieldTypes.genre];
-                mNewData[iLoop].iRating = uint.Parse(mOldData[iLoop][metaDataFieldTypes.raiting]);
+                mNewData[iLoop].iRating = uint.Parse(mOldData[iLoop][metaDataFieldTypes.rating]);
                 mNewData[iLoop].sTitle = mOldData[iLoop][metaDataFieldTypes.title];
                 mNewData[iLoop].iTotalDisks = uint.Parse(mOldData[iLoop][metaDataFieldTypes.total_disks]);
                 mNewData[iLoop].iTotalTracks = uint.Parse(mOldData[iLoop][metaDataFieldTypes.total_tracks]);
@@ -173,9 +178,34 @@ namespace netDiscographer.core
         /// <param name="mMediaEntries">Unsorted media entry array</param>
         /// <param name="mTypes">What to sort by (most significant first)</param>
         /// <param name="sSortOrder">Sort order for each matching metaDataFieldType</param>
+        public static void sortMedia(mediaEntry[] mMediaEntries, metaDataFieldTypes[] mTypes, sortOrder sSortOrder)
+        {
+            sortOrder[] sNewSort = new sortOrder[mTypes.Length];
+            for (int iLoop = 0; iLoop < mTypes.Length; iLoop++)
+                sNewSort[iLoop] = sSortOrder;
+
+            sortMedia(mMediaEntries, mTypes, sNewSort);
+        }
+
+        /// <summary>
+        /// Sorts an array of mediaEntries based on meta data types
+        /// </summary>
+        /// <param name="mMediaEntries">Unsorted media entry array</param>
+        /// <param name="mTypes">What to sort by (most significant first)</param>
+        /// <param name="sSortOrder">Sort order for each matching metaDataFieldType</param>
         public static void sortMedia(mediaEntry[] mMediaEntries, metaDataFieldTypes[] mTypes, sortOrder[] sSortOrder)
         {
             Array.Sort<mediaEntry>(mMediaEntries, new mediaEntryComparer(mTypes, sSortOrder));
+        }
+
+        /// <summary>
+        /// Gets the friendly name version of a meta data field
+        /// </summary>
+        /// <param name="mFieldType">Field to grab</param>
+        /// <returns>Friendly string version of the field</returns>
+        public static string getFriendlyFieldName(metaDataFieldTypes mFieldType)
+        {
+            return _sFriendlyNames[calcFieldTypesID(mFieldType)];
         }
         #endregion
 
@@ -185,7 +215,7 @@ namespace netDiscographer.core
         /// </summary>
         /// <param name="mFieldID">Field ID</param>
         /// <returns>Integer Version</returns>
-        private int calcFieldTypesID(metaDataFieldTypes mFieldID)
+        private static int calcFieldTypesID(metaDataFieldTypes mFieldID)
         {
             if (mFieldID == 0)
                 throw new IndexOutOfRangeException("No field type of NONE has no field ID.");
