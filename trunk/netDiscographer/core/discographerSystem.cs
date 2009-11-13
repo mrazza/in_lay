@@ -61,7 +61,7 @@ namespace netDiscographer.core
         /// <param name="dDatabase">The database we are wrapping.</param>
         public discographerSystem(discographerDatabase dDatabase)
         {
-            if (_dDatabase == null)
+            if (dDatabase == null)
                 throw new ArgumentNullException("dDatabase can't be null when creating a new instance of the discographerSystem.");
 
             _dDatabase = dDatabase;
