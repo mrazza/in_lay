@@ -32,6 +32,11 @@ namespace netDiscographer.core.events
         /// Data returned from the search
         /// </summary>
         private mediaEntry[] _mEntries;
+
+        /// <summary>
+        /// The time it took to complete the search
+        /// </summary>
+        private TimeSpan _tSearchTime;
         #endregion
 
         #region Properties
@@ -56,6 +61,17 @@ namespace netDiscographer.core.events
                 return _mEntries;
             }
         }
+
+        /// <summary>
+        /// The time it took to complete the search
+        /// </summary>
+        public TimeSpan tSearchTime
+        {
+            get
+            {
+                return _tSearchTime;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -65,12 +81,22 @@ namespace netDiscographer.core.events
         /// <param name="sRequest">The search request.</param>
         /// <param name="mEntries">The media entries returned.</param>
         public onSearchCompleteEventArgs(searchRequest sRequest, mediaEntry[] mEntries)
+            : this(sRequest, mEntries, TimeSpan.Zero) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="onSearchCompleteEventArgs"/> class.
+        /// </summary>
+        /// <param name="sRequest">The search request.</param>
+        /// <param name="mEntries">The media entries returned.</param>
+        /// <param name="tSearchTime">Time it took to execute the search</param>
+        public onSearchCompleteEventArgs(searchRequest sRequest, mediaEntry[] mEntries, TimeSpan tSearchTime)
         {
             if (sRequest == null)
                 throw new NullReferenceException("sRequest can not be null when creating an instance of onSearchCompleteEventArgs.");
 
             _sRequest = sRequest;
             _mEntries = mEntries;
+            _tSearchTime = tSearchTime;
         }
         #endregion
     }

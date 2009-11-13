@@ -70,6 +70,17 @@ namespace inlayShared.core
                 return _gSystem;
             }
         }
+
+        /// <summary>
+        /// Shared netDiscographer System/Database
+        /// </summary>
+        public discographerSystem dSystem
+        {
+            get
+            {
+                return _dSystem;
+            }
+        }
         #endregion
 
         #region Constructors
@@ -93,6 +104,7 @@ namespace inlayShared.core
             _nPlayer = nPlayer;
             _gSystem = gSystem;
             _dDatabase = dDatabase;
+            _dSystem = new discographerSystem(_dDatabase);
         }
         #endregion
     }
