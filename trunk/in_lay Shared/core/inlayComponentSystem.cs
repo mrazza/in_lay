@@ -93,13 +93,13 @@ namespace inlayShared.core
         public inlayComponentSystem(netAudioPlayer nPlayer, gooeySystem gSystem, discographerDatabase dDatabase)
         {
             if (nPlayer == null)
-                throw new NullReferenceException("nPlayer can not be null when creating an inlayComponentSystem object.");
+                throw new ArgumentNullException("nPlayer", "nPlayer can not be null when creating an inlayComponentSystem object.");
 
             if (gSystem == null)
-                throw new NullReferenceException("gSystem can not be null when creating an inlayComponentSystem object.");
+                throw new ArgumentNullException("gSystem", "gSystem can not be null when creating an inlayComponentSystem object.");
 
             if (dDatabase == null)
-                throw new NullReferenceException("dDatabase can not be null when creating an inlayComponentSystem object.");
+                throw new ArgumentNullException("dDatabase", "dDatabase can not be null when creating an inlayComponentSystem object.");
 
             _nPlayer = nPlayer;
             _gSystem = gSystem;
