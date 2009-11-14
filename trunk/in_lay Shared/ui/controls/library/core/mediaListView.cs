@@ -13,6 +13,7 @@
  * This software is distributed under the Microsoft Public License (Ms-PL).
  *******************************************************************/
 
+using System;
 using inlayShared.ui.controls.core;
 using netDiscographer.core;
 
@@ -65,8 +66,11 @@ namespace inlayShared.ui.controls.library.core
             set
             {
                 _mData = value;
-
                 sortData();
+                _gSystem.invokeOnLocalThread((Action)(() =>
+                {
+                        ItemsSource = _mData;
+                }));
             }
         }
         #endregion

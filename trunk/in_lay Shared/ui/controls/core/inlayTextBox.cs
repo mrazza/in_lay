@@ -20,9 +20,9 @@ using netGooey.controls;
 namespace inlayShared.ui.controls.core
 {
     /// <summary>
-    /// Abstract in_lay Grid base
+    /// Abstract in_lay TextBox base
     /// </summary>
-    public abstract class inlayGrid : gooeyGrid, IPlayerControl
+    public abstract class inlayTextBox : gooeyTextBox, IPlayerControl
     {
         #region Members
         /// <summary>
@@ -73,9 +73,9 @@ namespace inlayShared.ui.controls.core
 
         #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="inlayGrid"/> class.
+        /// Initializes a new instance of the <see cref="inlayTextBox"/> class.
         /// </summary>
-        public inlayGrid()
+        public inlayTextBox()
             : base()
         {
             _iSystem = null;
