@@ -92,7 +92,7 @@ namespace netDiscographer.core.events
         public onSearchCompleteEventArgs(searchRequest sRequest, mediaEntry[] mEntries, TimeSpan tSearchTime)
         {
             if (sRequest == null)
-                throw new NullReferenceException("sRequest can not be null when creating an instance of onSearchCompleteEventArgs.");
+                throw new ArgumentNullException("sRequest can not be null when creating an instance of onSearchCompleteEventArgs.");
 
             _sRequest = sRequest;
             _mEntries = mEntries;

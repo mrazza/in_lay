@@ -254,8 +254,10 @@ namespace netAudio.core
 
             foreach (string curr in input)
             {
+                if (sBuilder.Length > 0)
+                    sBuilder.Append(delim);
+
                 sBuilder.Append(curr);
-                sBuilder.Append(delim);
             }
 
             return sBuilder.ToString();
