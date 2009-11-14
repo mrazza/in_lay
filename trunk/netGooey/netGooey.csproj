@@ -58,6 +58,7 @@
     <Compile Include="controls\gooeyGridView.cs" />
     <Compile Include="controls\gooeyListView.cs" />
     <Compile Include="controls\gooeySlider.cs" />
+    <Compile Include="controls\gooeyTextBox.cs" />
     <Compile Include="core\gooeySystem.cs" />
     <Compile Include="core\gooeyWindow.cs" />
     <Compile Include="core\IGooeyControl.cs" />
