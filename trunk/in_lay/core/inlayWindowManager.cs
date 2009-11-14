@@ -70,7 +70,7 @@ namespace in_lay.core
         public inlayWindowManager(inlayComponentSystem iSystem)
         {
             if (iSystem == null)
-                throw new NullReferenceException("iSystem is not set to an instance of an object.");
+                throw new ArgumentNullException("iSystem is not set to an instance of an object.");
 
             _iSystem = iSystem;
         }
