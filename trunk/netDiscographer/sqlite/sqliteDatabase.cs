@@ -1161,8 +1161,12 @@ namespace netDiscographer.sqlite
         {
             mediaEntry[] mAll = getTrackData(searchDatabase(new string[0], new metaDataFieldTypes[0], searchMethod.none));
 
+            _mLibrary = new Dictionary<int, mediaEntry>(mAll.Length);
+
             foreach (mediaEntry mCurr in mAll)
                 _mLibrary.Add(mCurr.iEntryID, mCurr);
+
+            GC.Collect();
         }
 
         /// <summary>
