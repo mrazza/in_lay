@@ -51,6 +51,7 @@ namespace inlayShared.ui.controls.library
         protected override void completeInitialization()
         {
             _iSystem.iLibSystem.eOnMediaChanged += (_eOnSearchComplete = new EventHandler(iLibSystem_eSearchComplete));
+            mData = _iSystem.iLibSystem.lCurrentLibrary.mCurrentMedia;
             base.completeInitialization();
         }
         #endregion
