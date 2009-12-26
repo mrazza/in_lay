@@ -46,6 +46,11 @@ namespace inlayShared.core
         /// netDiscographer Database System
         /// </summary>
         private discographerSystem _dSystem;
+
+        /// <summary>
+        /// inlay's Library System
+        /// </summary>
+        private inlayLibrarySystem _iLibSystem;
         #endregion
 
         #region Properties
@@ -81,6 +86,17 @@ namespace inlayShared.core
                 return _dSystem;
             }
         }
+
+        /// <summary>
+        /// Shared inlay Library System
+        /// </summary>
+        public inlayLibrarySystem iLibSystem
+        {
+            get
+            {
+                return _iLibSystem;
+            }
+        }
         #endregion
 
         #region Constructors
@@ -105,6 +121,10 @@ namespace inlayShared.core
             _gSystem = gSystem;
             _dDatabase = dDatabase;
             _dSystem = new discographerSystem(_dDatabase);
+            _iLibSystem = new inlayLibrarySystem(this);
+            _iLibSystem.addLibrary(new libraryInstance(this)); //Add the library
+            _iLibSystem.iCurrentLibrary = 0;
+            _iLibSystem.lCurrentLibrary.refresh();
         }
         #endregion
     }

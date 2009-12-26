@@ -30,28 +30,6 @@ namespace netDiscographer.core
         /// Discographer Database we are wrapping
         /// </summary>
         private discographerDatabase _dDatabase;
-
-        /// <summary>
-        /// Occurs when [search complete].
-        /// </summary>
-        private event EventHandler<onSearchCompleteEventArgs> _eSearchComplete;
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// Occurs when [search complete].
-        /// </summary>
-        public event EventHandler<onSearchCompleteEventArgs> eSearchComplete
-        {
-            add
-            {
-                _eSearchComplete += value;
-            }
-            remove
-            {
-                _eSearchComplete -= value;
-            }
-        }
         #endregion
 
         #region Constructors
@@ -76,22 +54,8 @@ namespace netDiscographer.core
         /// <returns>Entries meeting search requirements</returns>
         public mediaEntry[] searchDatabase(searchRequest sRequest)
         {
-            return searchDatabase(sRequest, false);
-        }
-
-        /// <summary>
-        /// Searches the database
-        /// </summary>
-        /// <param name="sRequest">Search request to process</param>
-        /// <param name="bFireEvent">If false, this function will not trigger any search-related events</param>
-        /// <returns>Entries meeting search requirements</returns>
-        public mediaEntry[] searchDatabase(searchRequest sRequest, bool bFireEvent)
-        {
             DateTime dStart = DateTime.Now;
             mediaEntry[] mRet = _dDatabase.searchDatabase(sRequest);
-
-            if (bFireEvent)
-                invokeOnSearchComplete(new onSearchCompleteEventArgs(sRequest, mRet, DateTime.Now - dStart));
 
             return mRet;
         }
@@ -100,28 +64,18 @@ namespace netDiscographer.core
         /// Searches the database asyncronously.
         /// </summary>
         /// <param name="sRequest">Search request to process</param>
-        public void asyncSearchDatabase(searchRequest sRequest)
+        /// <param name="eTriggerTarget">Function/Event Handler to invoke when completed</param>
+        public void asyncSearchDatabase(searchRequest sRequest, EventHandler<onSearchCompleteEventArgs> eTriggerTarget)
         {
             DateTime dStart = DateTime.Now;
 
             ThreadStart tStartupInfo = new ThreadStart(() =>
                 {
-                    invokeOnSearchComplete(new onSearchCompleteEventArgs(sRequest, _dDatabase.searchDatabase(sRequest), DateTime.Now - dStart));
+                    eTriggerTarget.Invoke(this, new onSearchCompleteEventArgs(sRequest, _dDatabase.searchDatabase(sRequest), DateTime.Now - dStart));
                 });
 
             Thread tNewThread = new Thread(tStartupInfo);
             tNewThread.Start();
-        }
-        #endregion
-
-        #region Private Members
-        /// <summary>
-        /// Invokes the on search complete event.
-        /// </summary>
-        /// <param name="eArgs">The <see cref="netDiscographer.core.events.onSearchCompleteEventArgs"/> instance containing the event data.</param>
-        private void invokeOnSearchComplete(onSearchCompleteEventArgs eArgs)
-        {
-            _eSearchComplete.Invoke(this, eArgs);
         }
         #endregion
     }

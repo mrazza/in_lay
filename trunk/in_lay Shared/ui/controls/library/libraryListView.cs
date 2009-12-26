@@ -29,7 +29,7 @@ namespace inlayShared.ui.controls.library
         /// <summary>
         /// On search complete event
         /// </summary>
-        private EventHandler<onSearchCompleteEventArgs> _eOnSearchComplete;
+        private EventHandler _eOnSearchComplete;
         #endregion
 
         #region Constructors
@@ -50,23 +50,20 @@ namespace inlayShared.ui.controls.library
         /// <remarks>When overriding this function, you must call base.completeInitialization AFTER any new code.</remarks>
         protected override void completeInitialization()
         {
-            _iSystem.dSystem.eSearchComplete += (_eOnSearchComplete = new EventHandler<onSearchCompleteEventArgs>(dSystem_eSearchComplete));
+            _iSystem.iLibSystem.eOnMediaChanged += (_eOnSearchComplete = new EventHandler(iLibSystem_eSearchComplete));
             base.completeInitialization();
         }
         #endregion
 
         #region Events
         /// <summary>
-        /// Handles the eSearchComplete event of the dSystem control.
+        /// Handles the eSearchComplete event of the iLibSystem control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="netDiscographer.core.events.onSearchCompleteEventArgs"/> instance containing the event data.</param>
-        private void dSystem_eSearchComplete(object sender, onSearchCompleteEventArgs e)
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void iLibSystem_eSearchComplete(object sender, EventArgs e)
         {
-            if (e.sRequest.sType != searchType.library)
-                return;
-
-            mData = e.mEntries;
+            mData = _iSystem.iLibSystem.lCurrentLibrary.mCurrentMedia;
         }
         #endregion
 
@@ -78,7 +75,7 @@ namespace inlayShared.ui.controls.library
         public override void Dispose()
         {
             if (_eOnSearchComplete != null)
-                _iSystem.dSystem.eSearchComplete -= _eOnSearchComplete;
+                _iSystem.iLibSystem.eOnMediaChanged -= _eOnSearchComplete;
 
             base.Dispose();
         }

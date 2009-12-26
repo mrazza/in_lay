@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="core\databaseSearchCompleteEventArgs.cs" />
     <Compile Include="core\inlayComponentSystem.cs" />
+    <Compile Include="core\inlayLibrarySystem.cs" />
+    <Compile Include="core\libraryInstance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ui\controls\core\inlayGrid.cs" />
     <Compile Include="ui\controls\core\inlayLabel.cs" />
