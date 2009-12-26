@@ -86,7 +86,7 @@ namespace inlayShared.ui.controls.library
 
             _iSystem.gSystem.invokeOnLocalThread((Action)(()=>
             {
-                _iSystem.dSystem.asyncSearchDatabase(new searchRequest(Text.Split(' ')));
+                _iSystem.iLibSystem.lCurrentLibrary.sSearchString = Text;
             }));
         }
         #endregion
