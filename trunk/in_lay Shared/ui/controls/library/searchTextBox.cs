@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * *****************************************************************
- * Copyright (C) 2009 Matt Razza
+ * Copyright (C) 2009-2010 Matt Razza
  * This software is distributed under the Microsoft Public License (Ms-PL).
  *******************************************************************/
 
@@ -36,6 +36,11 @@ namespace inlayShared.ui.controls.library
         /// The search delay timer thread
         /// </summary>
         private Thread _tSearchTimer;
+
+        /// <summary>
+        /// Triggered when the current library has changed
+        /// </summary>
+        private EventHandler _eOnLibraryChanged;
         #endregion
 
         #region Constructor
@@ -54,6 +59,7 @@ namespace inlayShared.ui.controls.library
         protected override void completeInitialization()
         {
             TextChanged += (_eTextChanged = new TextChangedEventHandler(searchTextBox_TextChanged));
+            _iSystem.iLibSystem.eOnLibraryChanged += (_eOnLibraryChanged = new EventHandler(iLibSystem_eOnLibraryChanged));
             base.completeInitialization();
         }
         #endregion
@@ -86,8 +92,18 @@ namespace inlayShared.ui.controls.library
 
             _iSystem.gSystem.invokeOnLocalThread((Action)(()=>
             {
-                _iSystem.iLibSystem.lCurrentLibrary.sSearchString = Text;
+                _iSystem.iLibSystem.lCurrentLibrary.sSearchString = this.Text;
             }));
+        }
+
+        /// <summary>
+        /// Handles the eOnLibraryChanged event of the iLibSystem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void iLibSystem_eOnLibraryChanged(object sender, EventArgs e)
+        {
+            this.Text = _iSystem.iLibSystem.lCurrentLibrary.sSearchString;
         }
         #endregion
 
@@ -100,6 +116,9 @@ namespace inlayShared.ui.controls.library
         {
             if (_eTextChanged != null)
                 TextChanged -= _eTextChanged;
+
+            if (_eOnLibraryChanged != null)
+                _iSystem.iLibSystem.eOnLibraryChanged -= _eOnLibraryChanged;
 
             base.Dispose();
         }
