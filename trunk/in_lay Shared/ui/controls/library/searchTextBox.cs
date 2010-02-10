@@ -22,7 +22,7 @@ using netDiscographer.core;
 namespace inlayShared.ui.controls.library
 {
     /// <summary>
-    /// A TextBox that triggers searches
+    /// A TextBox that triggers searches on the currently active library
     /// </summary>
     public sealed class searchTextBox : inlayTextBox
     {
@@ -40,7 +40,7 @@ namespace inlayShared.ui.controls.library
         /// <summary>
         /// Triggered when the current library has changed
         /// </summary>
-        private EventHandler _eOnLibraryChanged;
+        private EventHandler _eOnActiveLibraryChanged;
         #endregion
 
         #region Constructor
@@ -59,7 +59,7 @@ namespace inlayShared.ui.controls.library
         protected override void completeInitialization()
         {
             TextChanged += (_eTextChanged = new TextChangedEventHandler(searchTextBox_TextChanged));
-            _iSystem.iLibSystem.eOnLibraryChanged += (_eOnLibraryChanged = new EventHandler(iLibSystem_eOnLibraryChanged));
+            _iSystem.iLibSystem.eOnActiveLibraryChanged += (_eOnActiveLibraryChanged = new EventHandler(iLibSystem_eOnActiveLibraryChanged));
             base.completeInitialization();
         }
         #endregion
@@ -97,11 +97,11 @@ namespace inlayShared.ui.controls.library
         }
 
         /// <summary>
-        /// Handles the eOnLibraryChanged event of the iLibSystem control.
+        /// Handles the eOnActiveLibraryChanged event of the iLibSystem control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void iLibSystem_eOnLibraryChanged(object sender, EventArgs e)
+        private void iLibSystem_eOnActiveLibraryChanged(object sender, EventArgs e)
         {
             this.Text = _iSystem.iLibSystem.lCurrentLibrary.sSearchString;
         }
@@ -117,8 +117,8 @@ namespace inlayShared.ui.controls.library
             if (_eTextChanged != null)
                 TextChanged -= _eTextChanged;
 
-            if (_eOnLibraryChanged != null)
-                _iSystem.iLibSystem.eOnLibraryChanged -= _eOnLibraryChanged;
+            if (_eOnActiveLibraryChanged != null)
+                _iSystem.iLibSystem.eOnActiveLibraryChanged -= _eOnActiveLibraryChanged;
 
             base.Dispose();
         }

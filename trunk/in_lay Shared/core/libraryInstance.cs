@@ -59,6 +59,16 @@ namespace inlayShared.core
         /// Root inlay component system
         /// </summary>
         private inlayComponentSystem _iComponentSystem;
+
+        /// <summary>
+        /// Current scroll position of the library
+        /// </summary>
+        private int _iScrollPosition;
+
+        /// <summary>
+        /// Currently selected song
+        /// </summary>
+        private int _iSelectedSong;
         #endregion
 
         #region Events
@@ -152,6 +162,36 @@ namespace inlayShared.core
             get
             {
                 return _mCurrentMedia;
+            }
+        }
+
+        /// <summary>
+        /// Current scroll position of the library
+        /// </summary>
+        public int iScrollPosition
+        {
+            get
+            {
+                return _iScrollPosition;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        /// Currently selected song
+        /// </summary>
+        public int iSelectedSong
+        {
+            get
+            {
+                return _iSelectedSong;
+            }
+            set
+            {
+                throw new NotImplementedException();
             }
         }
         #endregion
