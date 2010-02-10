@@ -44,25 +44,25 @@ namespace inlayShared.core
         #endregion
 
         #region Events
-        #region eOnLibraryChanged
+        #region eOnActiveLibraryChanged
         /// <summary>
         /// Triggered when the active library has changed
         /// </summary>
-        private event EventHandler _eOnLibraryChanged;
+        private event EventHandler _eOnActiveLibraryChanged;
 
         /// <summary>
         /// Triggered when the active library has changed
         /// </summary>
-        public event EventHandler eOnLibraryChanged
+        public event EventHandler eOnActiveLibraryChanged
         {
             add
             {
-                _eOnLibraryChanged += value;
+                _eOnActiveLibraryChanged += value;
             }
             remove
             {
-                if (_eOnLibraryChanged != null)
-                    _eOnLibraryChanged -= value;
+                if (_eOnActiveLibraryChanged != null)
+                    _eOnActiveLibraryChanged -= value;
             }
         }
         #endregion
@@ -86,6 +86,29 @@ namespace inlayShared.core
             {
                 if (_eOnMediaChanged != null)
                     _eOnMediaChanged -= value;
+            }
+        }
+        #endregion
+
+        #region eOnLibrariesChanged
+        /// <summary>
+        /// Triggered when the list of available libraries changes
+        /// </summary>
+        private event EventHandler _eOnLibrariesChanged;
+
+        /// <summary>
+        /// Triggered when the list of available libraries changes
+        /// </summary>
+        public event EventHandler eOnLibrariesChanged
+        {
+            add
+            {
+                _eOnLibrariesChanged += value;
+            }
+            remove
+            {
+                if (_eOnLibrariesChanged != null)
+                    _eOnLibrariesChanged -= value;
             }
         }
         #endregion
@@ -173,6 +196,7 @@ namespace inlayShared.core
         {
             lNewLibrary.eOnMediaChanged += new EventHandler(lLibraries_eOnMediaChanged);
             _lLibraryInstances.Add(lNewLibrary);
+            librariesChanged();
         }
         #endregion
 
@@ -182,11 +206,20 @@ namespace inlayShared.core
         /// </summary>
         private void currentLibraryChanged()
         {
-            if (_eOnLibraryChanged != null)
-                _eOnLibraryChanged.Invoke(this, new EventArgs());
+            if (_eOnActiveLibraryChanged != null)
+                _eOnActiveLibraryChanged.Invoke(this, new EventArgs());
 
             if (_eOnMediaChanged != null)
                 _eOnMediaChanged.Invoke(this, new EventArgs());
+        }
+        
+        /// <summary>
+        /// Triggeres related events when the list of libraries changes
+        /// </summary>
+        private void librariesChanged()
+        {
+            if (_eOnLibrariesChanged != null)
+                _eOnLibrariesChanged.Invoke(this, new EventArgs());
         }
 
         /// <summary>
