@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * *****************************************************************
- * Copyright (C) 2009 Matt Razza
+ * Copyright (C) 2009-2010 Matt Razza
  * This software is distributed under the Microsoft Public License (Ms-PL).
  *******************************************************************/
 
