@@ -123,6 +123,8 @@ namespace inlayShared.core
             _dSystem = new discographerSystem(_dDatabase);
             _iLibSystem = new inlayLibrarySystem(this);
             _iLibSystem.addLibrary(new libraryInstance(this)); //Add the library
+            _iLibSystem.addLibrary(new libraryInstance(this, "Radiohead Playlist", searchType.library, -1));
+            _iLibSystem.getLibrary(1).sSearchString = "Radiohead";
             _iLibSystem.iCurrentLibrary = 0;
             _iLibSystem.lCurrentLibrary.refresh();
         }
