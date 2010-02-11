@@ -14,10 +14,9 @@
  *******************************************************************/
 
 using System;
-using System.Windows.Controls;
 using System.Threading;
+using System.Windows.Controls;
 using inlayShared.ui.controls.core;
-using netDiscographer.core;
 
 namespace inlayShared.ui.controls.library
 {

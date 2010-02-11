@@ -26,6 +26,11 @@ namespace inlayShared.core
     {
         #region Members
         /// <summary>
+        /// Name of the library instance
+        /// </summary>
+        private string _sName;
+
+        /// <summary>
         /// Type of library instance
         /// </summary>
         private searchType _sLibraryType;
@@ -95,6 +100,21 @@ namespace inlayShared.core
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets/Sets the library name
+        /// </summary>
+        public string sName
+        {
+            get
+            {
+                return _sName;
+            }
+            set
+            {
+                _sName = value;
+            }
+        }
+
         /// <summary>
         /// Gets the type of the library.
         /// </summary>
@@ -202,17 +222,19 @@ namespace inlayShared.core
         /// </summary>
         /// <param name="iComponentSystem">The inlay component system.</param>
         public libraryInstance(inlayComponentSystem iComponentSystem)
-            : this(iComponentSystem, searchType.library, -1) { }
+            : this(iComponentSystem, "Library", searchType.library, -1) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="libraryInstance"/> class.
         /// </summary>
         /// <param name="iComponentSystem">The inlay component system.</param>
+        /// <param name="sName">Name of the library</param>
         /// <param name="sLibraryType">Type of the library.</param>
         /// <param name="iPlaylistID">The playlist ID.</param>
-        public libraryInstance(inlayComponentSystem iComponentSystem, searchType sLibraryType, int iPlaylistID)
+        public libraryInstance(inlayComponentSystem iComponentSystem, string sName, searchType sLibraryType, int iPlaylistID)
         {
             _iComponentSystem = iComponentSystem;
+            _sName = sName;
             _sLibraryType = sLibraryType;
             _iPlaylistID = iPlaylistID;
 

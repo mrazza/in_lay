@@ -58,11 +58,13 @@
     <Compile Include="ui\controls\core\inlayGridView.cs" />
     <Compile Include="ui\controls\core\inlayListView.cs" />
     <Compile Include="ui\controls\core\inlaySlider.cs" />
+    <Compile Include="ui\controls\core\inlayTabControl.cs" />
     <Compile Include="ui\controls\core\inlayTextBox.cs" />
     <Compile Include="ui\controls\library\core\mediaGridView.cs" />
     <Compile Include="ui\controls\library\core\mediaListView.cs" />
     <Compile Include="ui\controls\library\libraryGridView.cs" />
     <Compile Include="ui\controls\library\libraryListView.cs" />
+    <Compile Include="ui\controls\library\libraryTabbedList.cs" />
     <Compile Include="ui\controls\library\searchTextBox.cs" />
     <Compile Include="ui\controls\playback\pauseButton.cs" />
     <Compile Include="ui\controls\playback\playButton.cs" />
