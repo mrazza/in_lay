@@ -14,6 +14,9 @@
  *******************************************************************/
 
 using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using netDiscographer.core;
 using netDiscographer.core.events;
 using inlayShared.ui.controls.library.core;
@@ -40,6 +43,10 @@ namespace inlayShared.ui.controls.library
             : base()
         {
             mSortOrder = new metaDataFieldTypes[] { metaDataFieldTypes.artist, metaDataFieldTypes.album, metaDataFieldTypes.track, metaDataFieldTypes.title };
+
+            // Subscribe to self-events
+            this.MouseDoubleClick += new System.Windows.Input.MouseButtonEventHandler(libraryListView_MouseDoubleClick);
+            this.MouseRightButtonUp += new System.Windows.Input.MouseButtonEventHandler(libraryListView_MouseRightButtonUp);
         }
         #endregion
 
@@ -57,6 +64,33 @@ namespace inlayShared.ui.controls.library
         #endregion
 
         #region Events
+        /// <summary>
+        /// Handles the MouseDoubleClick event of the libraryListView control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        private void libraryListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            mediaEntry mSelectedTrack = (mediaEntry)this.SelectedItem;
+
+            if (mSelectedTrack == null)
+                return;
+
+            _iSystem.iLibSystem.lCurrentLibrary.iSelectedSong = this.SelectedIndex;
+            _iSystem.nPlayer.sMediaPath = mSelectedTrack.sPath;
+            _iSystem.nPlayer.playMedia();
+        }
+
+        /// <summary>
+        /// Handles the MouseRightButtonUp event of the libraryListView control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        private void libraryListView_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Handles the eSearchComplete event of the iLibSystem control.
         /// </summary>

@@ -33,6 +33,11 @@ namespace inlayShared.core
         private int _iCurrentLibrary;
 
         /// <summary>
+        /// Currently library with playback focus; -1 if nothing has playback focus
+        /// </summary>
+        private int _iCurrentPlaybackLibrary;
+
+        /// <summary>
         /// List of library instances
         /// </summary>
         private List<libraryInstance> _lLibraryInstances;
@@ -129,11 +134,32 @@ namespace inlayShared.core
                 if (_iCurrentLibrary == value)
                     return;
 
-                if (value >= _lLibraryInstances.Count || value < -1)
+                if (value >= getLibraryCount() || value < -1)
                     return;
 
                 _iCurrentLibrary = value;
                 currentLibraryChanged();
+            }
+        }
+
+        /// <summary>
+        /// Index of the library that currently has playback focus; -1 if none
+        /// </summary>
+        public int iCurrentPlaybackLibrary
+        {
+            get
+            {
+                return _iCurrentPlaybackLibrary;
+            }
+            set
+            {
+                if (_iCurrentPlaybackLibrary == value)
+                    return;
+
+                if (value >= getLibraryCount() || value < -1)
+                    return;
+
+                _iCurrentPlaybackLibrary = value;
             }
         }
 
@@ -162,6 +188,7 @@ namespace inlayShared.core
             _iComponentSystem = iParent;
             _lLibraryInstances = new List<libraryInstance>();
             _iCurrentLibrary = -1;
+            _iCurrentPlaybackLibrary = -1;
         }
         #endregion
 
