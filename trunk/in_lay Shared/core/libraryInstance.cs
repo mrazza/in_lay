@@ -74,6 +74,11 @@ namespace inlayShared.core
         /// Currently selected song
         /// </summary>
         private int _iSelectedSong;
+
+        /// <summary>
+        /// Position of the currently selected song
+        /// </summary>
+        private long _lSongPosition;
         #endregion
 
         #region Events
@@ -196,7 +201,7 @@ namespace inlayShared.core
             }
             set
             {
-                throw new NotImplementedException();
+                _iScrollPosition = value;
             }
         }
 
@@ -211,7 +216,22 @@ namespace inlayShared.core
             }
             set
             {
-                throw new NotImplementedException();
+                _iSelectedSong = value;
+            }
+        }
+
+        /// <summary>
+        /// Position in playback of the currently selected song
+        /// </summary>
+        public long lSongPosition
+        {
+            get
+            {
+                return _lSongPosition;
+            }
+            set
+            {
+                _lSongPosition = value;
             }
         }
         #endregion
@@ -241,12 +261,16 @@ namespace inlayShared.core
             _sCurrentSearchString = "";
             _eOnSearchComplete = new EventHandler<onSearchCompleteEventArgs>(dSystem_eSearchComplete);
             _tSearchTime = TimeSpan.Zero;
+
+            _lSongPosition = 0;
+            _iScrollPosition = 0;
+            _iSelectedSong = 0;
         }
         #endregion
 
         #region Public Members
         /// <summary>
-        /// Sets the active library to the full library
+        /// Sets this library instance to the full library
         /// </summary>
         public void setLibrary()
         {
@@ -254,7 +278,7 @@ namespace inlayShared.core
         }
 
         /// <summary>
-        /// Sets the active library to a given playlist.
+        /// Sets this library instance to a given playlist.
         /// </summary>
         /// <param name="sLibraryType">Type of playlist.</param>
         /// <param name="iPlaylistID">The playlist ID.</param>

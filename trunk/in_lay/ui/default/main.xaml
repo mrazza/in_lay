@@ -18,21 +18,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Width="499" Height="579"
     xmlns:playback="clr-namespace:inlayShared.ui.controls.playback;assembly=inlayShared"
     xmlns:library="clr-namespace:inlayShared.ui.controls.library;assembly=inlayShared">
-    <playback:volumeSlider Maximum="100" Minimum="0" Margin="42,208,62,0" Height="30" VerticalAlignment="Top" TickFrequency="10" TickPlacement="BottomRight" />
-    <playback:stopButton Height="63" VerticalAlignment="Top" Margin="233,129,189,0">Stop</playback:stopButton>
-    <playback:playPauseStopToggle Height="82" VerticalAlignment="Top" HorizontalAlignment="Left" Width="160" Margin="67,120,0,0">
+    <playback:volumeSlider Maximum="100" Minimum="0" Margin="42,180,62,0" Height="30" VerticalAlignment="Top" TickFrequency="10" TickPlacement="BottomRight" />
+    <playback:stopButton Height="63" VerticalAlignment="Top" Margin="233,101,189,0">Stop</playback:stopButton>
+    <playback:playPauseStopToggle Height="82" VerticalAlignment="Top" HorizontalAlignment="Left" Width="160" Margin="67,92,0,0">
         <playback:playButton playback:playPauseStopToggle.OnPauseShow="True" playback:playPauseStopToggle.OnStopShow="True" Height="63" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="78" Margin="0,0,0,10">Play</playback:playButton>
         <playback:pauseButton playback:playPauseStopToggle.OnPlayShow="True" Height="63" VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Right" Width="76">Pause</playback:pauseButton>
     </playback:playPauseStopToggle>
-    <playback:trackDataLabel OnNullText="No Track" OnTrackText="{}{1} - {0}" Height="50" Margin="106,50,24,0" VerticalAlignment="Top" />
-    <Label Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Width="82" Margin="42,50,0,0">Track Info:</Label>
-    <playback:playerPosDataLabel OnNullText="-:--" OnTrackText="{}{0:m:ss}" Height="34" VerticalAlignment="Bottom" Margin="96,0,177,200" />
-    <playback:seekerSlider Margin="6,244,18,225" />
-    <library:libraryListView Margin="6,0,24,53" Height="181" VerticalAlignment="Bottom">
+    <playback:trackDataLabel OnNullText="No Track" OnTrackText="{}{1} - {0}" Height="50" Margin="106,22,24,0" VerticalAlignment="Top" />
+    <Label Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Width="82" Margin="42,22,0,0">Track Info:</Label>
+    <playback:playerPosDataLabel OnNullText="-:--" OnTrackText="{}{0:m:ss}" Margin="96,233,177,0" Height="34" VerticalAlignment="Top" />
+    <playback:seekerSlider Margin="6,216,18,253" />
+    <library:libraryListView Margin="6,0,24,81" Height="181" VerticalAlignment="Bottom">
         <library:libraryListView.View>
             <library:libraryGridView></library:libraryGridView>
         </library:libraryListView.View>
     </library:libraryListView>
-    <library:searchTextBox Height="25" Margin="6,0,24,232" VerticalAlignment="Bottom"></library:searchTextBox>
-    <library:libraryTabbedList Height="24" Margin="6,0,23,257" Width="470" VerticalAlignment="Bottom"></library:libraryTabbedList>
+    <library:searchTextBox Height="25" Margin="6,0,24,260" VerticalAlignment="Bottom"></library:searchTextBox>
+    <library:libraryTabbedList Height="24" Margin="6,270,23,285" Width="470"></library:libraryTabbedList>
+    <Label Margin="6,0,6,15" Height="60" VerticalAlignment="Bottom">
+        <TextBlock FontStyle="Italic" Text="If you do not currently have a library, one must be built using the testing application and copied to the root directory of this application." TextWrapping="Wrap" />
+    </Label>
 </Grid>
