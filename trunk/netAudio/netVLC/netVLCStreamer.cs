@@ -21,10 +21,10 @@ using netAudio.netVLC.core;
 namespace netAudio.netVLC
 {
     /// <summary>
-    /// netVLC main class
+    /// netVLC Streaming Main Class
     /// Interacts with the libVLC helper classes
     /// </summary>
-    public sealed class netVLCPlayer : netAudioPlayer, IVLCCoreUser
+    public sealed class netVLCStreamer : netAudioStreamer, IVLCCoreUser
     {
         #region Members
         /// <summary>
@@ -46,12 +46,47 @@ namespace netAudio.netVLC
         /// Meta Data Reader Object
         /// </summary>
         private metaDataManager _mReader;
+
+        /// <summary>
+        /// Bit rate
+        /// </summary>
+        private int _iBitRate;
+
+        /// <summary>
+        /// Number of channels
+        /// </summary>
+        private int _iChannels;
+
+        /// <summary>
+        /// Sample Rate
+        /// </summary>
+        private int _iSampleRate;
+        
+        /// <summary>
+        /// Network IP to stream on
+        /// </summary>
+        private string _sNetworkAddr;
+
+        /// <summary>
+        /// Port to stream on
+        /// </summary>
+        private int _iPort;
+
+        /// <summary>
+        /// Has the option been applied?
+        /// </summary>
+        private bool _bOptionApplied;
+
+        /// <summary>
+        /// Has the config changed?
+        /// </summary>
+        private bool _bConfigChanged;
         #endregion
 
         #region Properties
         #region Events
         /// <summary>
-        /// Called when the player state changes
+        /// Called when the stream state changes
         /// </summary>
         public override event EventHandler<stateChangedEventArgs> eStateChanged
         {
@@ -66,22 +101,7 @@ namespace netAudio.netVLC
         }
 
         /// <summary>
-        /// Called when the player volume changes/the player is muted
-        /// </summary>
-        public override event EventHandler<volumeChangedEventArgs> eVolumeChanged
-        {
-            add
-            {
-                _vEventMan.eVolumeChanged += value;
-            }
-            remove
-            {
-                _vEventMan.eVolumeChanged -= value;
-            }
-        }
-
-        /// <summary>
-        /// Called when the player position changes
+        /// Called when the stream position changes
         /// </summary>
         public override event EventHandler<positionChangedEventArgs> ePositionChanged
         {
@@ -94,24 +114,9 @@ namespace netAudio.netVLC
                 _vEventMan.ePositionChanged -= value;
             }
         }
-
-        /// <summary>
-        /// Called when the player speed changes
-        /// </summary>
-        public override event EventHandler<speedChangedEventArgs> eSpeedChanged
-        {
-            add
-            {
-                _vEventMan.eSpeedChanged += value;
-            }
-            remove
-            {
-                _vEventMan.eSpeedChanged -= value;
-            }
-        }
         #endregion
 
-        #region netAudioPlayer
+        #region netAudioStreamer
         /// <summary>
         /// Position in the track (milliseconds)
         /// </summary>
@@ -159,54 +164,6 @@ namespace netAudio.netVLC
         }
 
         /// <summary>
-        /// Current volume (% of actual)
-        /// </summary>
-        public override int iVolume
-        {
-            get
-            {
-                return _vCore.iVolume;
-            }
-            set
-            {
-                _vCore.iVolume = value;
-                _vEventMan.invokeVolumeChanged(new volumeChangedEventArgs(value, bMute));
-            }
-        }
-
-        /// <summary>
-        /// Currently muted?
-        /// </summary>
-        public override bool bMute
-        {
-            get
-            {
-                return _vCore.bMute;
-            }
-            set
-            {
-                _vCore.bMute = value;
-                _vEventMan.invokeVolumeChanged(new volumeChangedEventArgs(iVolume, value));
-            }
-        }
-
-        /// <summary>
-        /// Current media playback rate
-        /// </summary>
-        public override float fPlaybackRate
-        {
-            get
-            {
-                return _vPlayer.fPlaybackRate;
-            }
-            set
-            {
-                _vPlayer.fPlaybackRate = value;
-                _vEventMan.invokeSpeedChanged(new speedChangedEventArgs(value));
-            }
-        }
-
-        /// <summary>
         /// Current state of the player
         /// </summary>
         public override playerState pState
@@ -228,20 +185,23 @@ namespace netAudio.netVLC
             }
             set
             {
-                stopMedia(); //Make sure we're not playing
+                stopStream(); //Make sure we're not streaming
 
                 // Dispose if we need to
                 if (_vPlayer.vMedia != null)
                     _vPlayer.vMedia.Dispose();
 
-                _vPlayer.vMedia = new vlcMedia(_vCore, value); //Set the media
+                vlcMedia newMedia = new vlcMedia(_vCore, value); //Set the media
+                _bOptionApplied = false;
+                _vPlayer.vMedia = newMedia;
                 _mReader.sFile = sMediaPath;
             }
         }
 
         /// <summary>
-        /// Current Track Meta Data
+        /// Tracks meta data
         /// </summary>
+        /// <value>Track meta data</value>
         public override metaData mTrackData
         {
             get
@@ -259,6 +219,86 @@ namespace netAudio.netVLC
                 _mReader.mData = value;
             }
         }
+
+        /// <summary>
+        /// Output bitrate
+        /// </summary>
+        public override int iBitRate
+        {
+            get
+            {
+                return _iBitRate;
+            }
+            set
+            {
+                _iBitRate = value;
+                _bConfigChanged = true;
+            }
+        }
+
+        /// <summary>
+        /// Number of channels to transcode
+        /// </summary>
+        public override int iChannels
+        {
+            get
+            {
+                return _iChannels;
+            }
+            set
+            {
+                _iChannels = value;
+                _bConfigChanged = true;
+            }
+        }
+
+        /// <summary>
+        /// Transcoding sampling rate
+        /// </summary>
+        public override int iSampleRate
+        {
+            get
+            {
+                return _iSampleRate;
+            }
+            set
+            {
+                _iSampleRate = value;
+                _bConfigChanged = true;
+            }
+        }
+
+        /// <summary>
+        /// IP we're streaming on
+        /// </summary>
+        public override string sNetworkAddr
+        {
+            get
+            {
+                return _sNetworkAddr;
+            }
+            set
+            {
+                _sNetworkAddr = value;
+                _bConfigChanged = true;
+            }
+        }
+
+        /// <summary>
+        /// Port we're streaming on
+        /// </summary>
+        public override int iPort
+        {
+            get
+            {
+                return _iPort;
+            }
+            set
+            {
+                _iPort = value;
+                _bConfigChanged = true;
+            }
+        }
         #endregion
 
         /// <summary>
@@ -271,42 +311,20 @@ namespace netAudio.netVLC
                 return _vCore;
             }
         }
-
-        /// <summary>
-        /// vlcPlayer
-        /// </summary>
-        public vlcPlayer vPlayer
-        {
-            get
-            {
-                return _vPlayer;
-            }
-        }
-
-        /// <summary>
-        /// vlcEventManager
-        /// </summary>
-        public vlcEventManager vEventMan
-        {
-            get
-            {
-                return _vEventMan;
-            }
-        }
         #endregion
 
         #region Constructors
         /// <summary>
         /// Empty Constructor
         /// </summary>
-        public netVLCPlayer()
+        public netVLCStreamer()
             : this(AppDomain.CurrentDomain.BaseDirectory, AppDomain.CurrentDomain.BaseDirectory + "plugins\\", new string[] { "-I", "dummy", "--ignore-config", "--verbose=0", "--no-media-library", "--no-video", "--vout", "dummy", "--control", "" }) { }
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="sArgs">Arguments</param>
-        public netVLCPlayer(string[] sArgs)
+        public netVLCStreamer(string[] sArgs)
             : this(AppDomain.CurrentDomain.BaseDirectory, AppDomain.CurrentDomain.BaseDirectory + "plugins\\", sArgs) { }
 
         /// <summary>
@@ -314,7 +332,7 @@ namespace netAudio.netVLC
         /// </summary>
         /// <param name="sPluginPath">Plugin path</param>
         /// <param name="sArgs">Arguments</param>
-        public netVLCPlayer(string sPluginPath, string[] sArgs)
+        public netVLCStreamer(string sPluginPath, string[] sArgs)
             : this(AppDomain.CurrentDomain.BaseDirectory, sPluginPath, sArgs) { }
 
         /// <summary>
@@ -323,43 +341,40 @@ namespace netAudio.netVLC
         /// <param name="sVLCPath">Path to VLC</param>
         /// <param name="sPluginPath">Path to plugins</param>
         /// <param name="sArgs">Arguments</param>
-        public netVLCPlayer(string sVLCPath, string sPluginPath, string[] sArgs)
+        public netVLCStreamer(string sVLCPath, string sPluginPath, string[] sArgs)
         {
+            _iBitRate = 128;
+            _iChannels = 2;
+            _iSampleRate = 44100;
+            _iPort = 8080;
+            _bConfigChanged = false;
+            _bOptionApplied = false;
             initVLC(sVLCPath, sPluginPath, sArgs);
         }
         #endregion
 
-        #region Public Memebers
+        #region Public Members
         /// <summary>
-        /// Plays the current media asset
+        /// Starts streaming the current media asset
         /// </summary>
-        public override void playMedia()
+        public override void startStream()
         {
+            applyOption();
             _vPlayer.playMedia();
         }
 
         /// <summary>
-        /// Plays the media in sPath
+        /// Pauses the stream
         /// </summary>
-        /// <param name="sPath">Media to play</param>
-        public override void playMedia(string sPath)
-        {
-            sMediaPath = sPath;
-            playMedia();
-        }
-
-        /// <summary>
-        /// Pauses the current media asset
-        /// </summary>
-        public override void pauseMedia()
+        public override void pauseStream()
         {
             _vPlayer.pauseMedia();
         }
 
         /// <summary>
-        /// Stops the current media asset
+        /// Stops the stream
         /// </summary>
-        public override void stopMedia()
+        public override void stopStream()
         {
             _vPlayer.stopMedia();
         }
@@ -383,8 +398,21 @@ namespace netAudio.netVLC
 
             _vCore = new vlcCore(sArguments);
             _vPlayer = new vlcPlayer(_vCore);
-            _vEventMan = new vlcEventManager(this);
+            _vEventMan = new vlcEventManager(this._vPlayer);
             _mReader = new metaDataManager(null);
+        }
+
+        /// <summary>
+        /// Apply encoding options
+        /// </summary>
+        private void applyOption()
+        {
+            if (_bOptionApplied && _bConfigChanged)
+                sMediaPath = sMediaPath;
+
+            _vPlayer.vMedia.addOption(":sout=#transcode{acodec=mp3,ab=" + _iBitRate + ",channels=" + _iChannels + ",samplerate=" + _iSampleRate + "}:std{access=http,mux=raw,dst=" + _sNetworkAddr + ":" + _iPort + "}");
+            _bOptionApplied = true;
+            _bConfigChanged = false;
         }
         #endregion
 
@@ -395,7 +423,7 @@ namespace netAudio.netVLC
         public override void Dispose()
         {
             _vEventMan.clearEventHandlers();
-            stopMedia();
+            stopStream();
             _vEventMan.Dispose();
 
             // Dispose if we need to

@@ -32,6 +32,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="core\events\eventTypes.cs">
@@ -55,6 +57,7 @@
     <Compile Include="core\netAudioPlayer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="core\netAudioStreamer.cs" />
     <Compile Include="core\playerState.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -479,6 +482,7 @@
     <Compile Include="netVLC\netVLCPlayer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="netVLC\netVLCStreamer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

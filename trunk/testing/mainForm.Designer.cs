@@ -61,6 +61,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button7 = new System.Windows.Forms.Button();
             this.lblResult = new System.Windows.Forms.Label();
+            this.button8 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -344,6 +345,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button8);
             this.groupBox1.Controls.Add(this.vol);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.lblPer);
@@ -387,6 +389,16 @@
             this.lblResult.Name = "lblResult";
             this.lblResult.Size = new System.Drawing.Size(0, 13);
             this.lblResult.TabIndex = 36;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(410, 74);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(75, 23);
+            this.button8.TabIndex = 37;
+            this.button8.Text = "Stream Test";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // mainForm
             // 
@@ -454,5 +466,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label lblResult;
+        private System.Windows.Forms.Button button8;
     }
 }

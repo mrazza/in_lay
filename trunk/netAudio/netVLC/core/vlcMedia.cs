@@ -304,6 +304,16 @@ namespace netAudio.netVLC.core
 
             return mData;
         }
+
+        /// <summary>
+        /// Adds the option to the media discriptor.
+        /// </summary>
+        /// <param name="sOption">The option.</param>
+        public void addOption(string sOption)
+        {
+            libvlc_media_add_option(_vHandle, sOption, ref _vCore.vException.vExStruct);
+            _vCore.handleError();
+        }
         #endregion
 
         #region ICloneable Members
@@ -383,6 +393,15 @@ namespace netAudio.netVLC.core
         /// <returns>Length of the track (milliseconds)</returns>
         [DllImport("libvlc")]
         private static extern long libvlc_media_get_duration(vlcMediaHandle vHandle, ref vlcException.vlcExceptionStruct vException);
+
+        /// <summary>
+        /// Adds an option to the media discriptor
+        /// </summary>
+        /// <param name="vHandle">Media Handle</param>
+        /// <param name="sOption">Option to add</param>
+        /// <param name="vException">Exception struct</param>
+        [DllImport("libvlc")]
+        private static extern void libvlc_media_add_option(vlcMediaHandle vHandle, string sOption, ref vlcException.vlcExceptionStruct vException);
         #endregion
     }
 }
