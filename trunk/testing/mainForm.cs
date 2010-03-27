@@ -409,5 +409,15 @@ namespace testing
 
             db.addTrackToPlaylist(stdPlaylistIDs[stdPlay.SelectedIndices[0]], songs, loc);
         }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            netAudioStreamer stream = new netVLCStreamer();
+            stream.sNetworkAddr = "192.168.2.43";
+            stream.iPort = 51920;
+            stream.iBitRate = 96;
+            stream.sMediaPath = @"P:\Music\OK Go\2010 - Of The Blue Colour Of The Sky\02 - This Too Shall Pass.mp3";
+            stream.startStream();
+        }
     }
 }
